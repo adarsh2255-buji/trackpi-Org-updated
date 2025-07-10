@@ -11,8 +11,6 @@ import LayoutB from './components/LayoutB'
 
 
 function App() {
-
-
   return (
     <>
     <Routes>
@@ -29,4 +27,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
