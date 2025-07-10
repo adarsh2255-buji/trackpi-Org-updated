@@ -1,0 +1,25 @@
+.background-b {
+    min-height: 100vh;
+    background-color: #0A0A0A;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .background-b::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -30%;
+    width: 180%;
+    height: 180%;
+    border-radius: 30%;
+    backdrop-filter: blur(80px);
+    background: linear-gradient(
+      225.01deg,
+      #FF9D0066 0%,
+      #000E4D4D 55%,
+      #000E4DFF 100%
+    );
+    z-index: -1;
+  }
+  

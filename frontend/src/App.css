@@ -1,0 +1,41 @@
+/* Common body styles */
+body {
+    margin: 0;
+    background-color: #0A0A0A;
+    overflow: hidden;
+    position: relative;
+    min-height: 100vh;
+  }
+  
+  /* Default background when no user (e.g., not logged in) */
+  body.no-user::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #4C3030 0%, #7A4D2E 50%, #4E3130 100%);
+  }
+  
+  /* Gradient + blur when user is logged in */
+  body.user::before {
+    content: "";
+    position: absolute;
+    top: -20%;
+    left: -30%;
+    width: 180%;
+    height: 180%;
+    border-radius: 30%;
+    backdrop-filter: blur(80px);
+    -webkit-backdrop-filter: blur(80px);
+    background: linear-gradient(
+      225.01deg,
+      #FF9D0066 0%,
+      #000E4D4D 55%,
+      #000E4DFF 100%
+    );
+    z-index: -1;
+  }
+  

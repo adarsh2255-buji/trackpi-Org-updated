@@ -5,7 +5,7 @@ const userSchema = new mongoose.Schema({
     name: { type: String, required: true },
     avatar: { type: String, required: true },
     googleId: { type: String, required: true, unique: true },
-    phoneNumber: { type: String, required: true },
+    phoneNumber: { type: String, required: false },
     createdAt: { type: Date, default: Date.now },
 });
 

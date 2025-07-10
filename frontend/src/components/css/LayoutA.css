@@ -1,0 +1,7 @@
+.background-a {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #4C3030 0%, #7A4D2E 50%, #4E3130 100%);
+  }
+  
