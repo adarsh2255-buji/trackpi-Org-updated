@@ -3,6 +3,7 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './config/database.js';
 import authRoutes from './routes/auth.js';
+import courseRoutes from './routes/course.js'
 
 dotenv.config();
 
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/auth', authRoutes);
+app.use('/api/course', courseRoutes);
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
