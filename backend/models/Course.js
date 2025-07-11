@@ -18,6 +18,7 @@ const sectionSchema = new Schema({
 const courseSchema = new Schema({
   title: { type: String, required: true },
   thumbnail: String,
+  duration: Number,
   sections: [sectionSchema],
   createdAt: { type: Date, default: Date.now },
 });
