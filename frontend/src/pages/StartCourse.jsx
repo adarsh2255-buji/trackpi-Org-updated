@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import followersAvatar from '../assets/followersAvatar.png'
 import { Link, useLocation } from 'react-router-dom';
 import ProgressSVG from '../components/ProgressSVG';
 import ProgressArrow from '../components/ProgressArrow';
 import squreLock from '../assets/square-lock-02.png'
+import { AuthContext } from '../context/AuthContext';
 
 const StartCourse = () => {
-    const [user, setUser] = useState(null);
+    const { user } = useContext(AuthContext)
+    console.log(user)
     const location = useLocation();
 
 
@@ -136,7 +138,7 @@ const StartCourse = () => {
 
 {/* start course and earn money */}
 <section className="w-full flex flex-col items-center">
-    <Link to='/courseSection' className='py-5 px-12.5 rounded-[30px] text-white text-2xl font-bold k2d cursor-pointer'
+    <Link to='/course-section' className='py-5 px-12.5 rounded-[30px] text-white text-2xl font-bold k2d cursor-pointer'
     style={{
         background: 'linear-gradient(103.71deg, #FF9D00 49.37%, #FFC100 49.39%)',
         borderWidth: '1px',

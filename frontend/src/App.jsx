@@ -8,6 +8,7 @@ import PhoneNUmber from './pages/PhoneNUmber'
 // background layout
 import LayoutA from './components/LayoutA'
 import LayoutB from './components/LayoutB'
+import CourseSection from './pages/CourseSection'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
 
       <Route element={<LayoutB />}>
         <Route path='/start-course' element={<StartCourse />} />
+        <Route path='/course-section' element={<CourseSection />} />
       </Route>
     </Routes>
     </>
