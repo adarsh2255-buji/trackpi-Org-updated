@@ -1,6 +1,6 @@
 // models/progressModel.js
 
-const mongoose = require('mongoose');
+import mongoose, { model } from 'mongoose';
 const { Schema } = mongoose;
 
 const progressSchema = new Schema({
@@ -47,4 +47,4 @@ const progressSchema = new Schema({
 // Ensure one progress per user-course pair
 progressSchema.index({ userId: 1, courseId: 1 }, { unique: true });
 
-module.exports = mongoose.model('Progress', progressSchema);
+export default model('Progress', progressSchema);
