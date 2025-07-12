@@ -10,6 +10,7 @@ import {
   addSectionToCourse,
   removeSectionFromCourse,
 } from '../controller/course.js';
+import { createAssessmentWithQuestions, updateAssessmentWithQuestions, deleteAssessment } from '../controller/assessment.js';
 
 const router = express.Router();
 
@@ -37,5 +38,10 @@ router.delete('/:courseId/sections/:sectionId', removeSectionFromCourse);
 
 // Add video to section: supports file upload or URL
 router.post('/:courseId/sections/:sectionId/videos', upload.single('video'), addVideoToSection);
+
+// Add assessment to course
+router.post('/assessment/create', createAssessmentWithQuestions);
+router.put('/assessment/update/:assessmentId', updateAssessmentWithQuestions);
+router.delete('/assessment/delete/:assessmentId', deleteAssessment);
 
 export default router;

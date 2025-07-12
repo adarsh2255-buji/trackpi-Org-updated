@@ -12,18 +12,9 @@ const assessmentSchema = new Schema(
       ref: "Section",
       required: true,
     },
-    timeLimit: {
-      type: Number, // in minutes
-      required: true,
-    },
-    passMark: {
-      type: Number,
-      required: true,
-    },
-    maxAttempts: {
-      type: Number,
-      required: true,
-    },
+    timeLimit: Number, // in minutes
+    passMark: Number,
+    maxAttempts: Number,
     questions: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -48,16 +39,8 @@ const questionSchema = new Schema(
       type: String,
       required: true,
     },
-    options: [
-      {
-        type: String,
-        required: true,
-      },
-    ],
-    correctOption: {
-      type: String, // or Number (index of options)
-      required: true,
-    },
+    options: [String],
+    correctOption: Number // or Number (index of options),
   },
   { timestamps: true }
 );
