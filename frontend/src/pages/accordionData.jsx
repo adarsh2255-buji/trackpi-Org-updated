@@ -18,7 +18,6 @@ export const accordionData = [
     id: 4,
     question: "Will i have an official id card?"
   },
-  
   {
     id: 5,
     question: "Do i need to submit any govt proofs??"

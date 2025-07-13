@@ -39,4 +39,5 @@ export const faqList = [
     question: "What is Kerala's biggest freelancer company?",
     answer: "The biggest freelancer company in Kerala is XYZ Freelancers."
   }
+  
 ];

@@ -9,6 +9,7 @@ const Faq = () => {
     const toggleAccordian = (id) => {
         setIsOpenId(openId === id ? null : id); 
     }
+    
   return (
     <>
     <h1 className='text-white text-[1.2rem] font-bold ml-6 mt-5 sm:ml-9 sm:text-3xl'>FAQ</h1>
