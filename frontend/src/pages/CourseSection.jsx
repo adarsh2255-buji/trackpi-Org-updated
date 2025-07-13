@@ -2,6 +2,7 @@ import React, { useContext, useRef }  from 'react'
 import { CourseContext } from '../context/courseContext'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import squareLock from '../assets/square-lock-02.png'
+import { Link, Outlet } from 'react-router-dom'
 
 const CourseSection = () => {
   const { courses, loading } = useContext(CourseContext);
@@ -18,7 +19,7 @@ const CourseSection = () => {
   };
 
 
-  console.log(courses);   
+  // console.log(courses);   
   return (
     <>
     <section className='container-search px-5 '>
@@ -50,7 +51,8 @@ const CourseSection = () => {
   {
     courses.length > 0 ? (
       courses.map((course) => (
-        <div
+        <Link
+          to={`/course-section/${course._id}`}
           key={course._id}
           className="relative rounded-[10px] border border-[#FF9D00] h-full min-w-[250px] cursor-pointer"
           style={{
@@ -63,7 +65,7 @@ const CourseSection = () => {
             <span className="text-white text-base font-semibold roboto">{course.title}</span>
             <span className="text-white roboto text-[10px] font-medium">{Math.floor(course.duration / 60)} hours</span>
           </div>
-        </div>
+        </Link>
       ))
     ) : (
       <p>No course available</p>
@@ -76,8 +78,14 @@ const CourseSection = () => {
     <ChevronRight size={18} />
 </button>
 
+
     </div>
 
+    {/* course list ends  */}
+ 
+    <div className="px-5 mt-10">
+        <Outlet />
+      </div>
     </>
   )
 }

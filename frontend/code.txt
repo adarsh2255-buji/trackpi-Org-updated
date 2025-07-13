@@ -1,0 +1,11 @@
+ <div className='nested routes'>
+    <div className='my-5 px-5 flex justify-between gap-5 lg:justify-end'>
+        <button className='rounded-[40px] px-12.5 py-3 bg-[#FF9D00] text-white text-[12px] sm:text-base font-medium cursor-pointer roboto'>Courses</button>
+        <button className='rounded-[40px] px-12.5 py-3 border border-[#FF9D00] text-[#FF9D00]  font-medium sm:text-base cursor-pointer roboto'>Assessment</button>
+    </div>
+
+    {/* nested sections */}
+
+
+
+  </div>
