@@ -9,7 +9,7 @@ import Faq2 from './pages/Faq2'
 import LayoutA from './components/LayoutA'
 import LayoutB from './components/LayoutB'
 import CourseSection from './pages/CourseSection'
-
+import ShowSections from './components/ShowSections'
 
 
 function App() {
@@ -23,11 +23,19 @@ function App() {
 
         <Route element={<LayoutB />}>
           <Route path='/start-course' element={<StartCourse />} />
+
+          {/* ✅ Nested routing works here */}
+          <Route path='/course-section' element={<CourseSection />}>
+            <Route path=':courseId' element={<ShowSections />} />
+          </Route>
+        </Route>
+      </Routes>
+        <Route element={<LayoutB />}>
+          <Route path='/start-course' element={<StartCourse />} />
           <Route path='/course-section' element={<CourseSection />} />
           <Route path="/faq2" element={<Faq2 />} />
 
         </Route>
-      </Routes>
     </>
   )
 }

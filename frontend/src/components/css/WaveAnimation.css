@@ -1,0 +1,14 @@
+.wave-move {
+    animation: waveMove 3s linear infinite;
+    will-change: transform;
+  }
+  
+  @keyframes waveMove {
+    0% {
+      transform: translateX(0px);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
