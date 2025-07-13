@@ -47,7 +47,9 @@ const CourseSection = () => {
         <ChevronLeft size={18} />
       </button>
 
-      <section className='courseList h-[122px] mt-8 flex gap-5 overflow-x-auto no-scrollbar scroll-smooth'>
+      <section 
+      className='courseList h-[122px] mt-8 flex gap-5 overflow-x-auto no-scrollbar scroll-smooth'
+      ref={scrollRef}>
   {
     courses.length > 0 ? (
       courses.map((course) => (
