@@ -4,17 +4,16 @@ import faqIcon from '../assets/faq-icon.png';
 import { faqList } from './faqList';
 import './css/faq.css';
 
-const Faq = () => {
+const Faq2 = () => {
     const [openId, setIsOpenId] = useState(null);
     const toggleAccordian = (id) => {
         setIsOpenId(openId === id ? null : id); 
     }
-    
   return (
     <>
     <h1 className='text-white text-[1.2rem] font-bold ml-6 mt-5 sm:ml-9 sm:text-3xl'>FAQ</h1>
 
-    <section className='faq-container px-5 mt-5 sm:flex sm:flex-row-reverse sm:justify-between sm:px-12 bg-gradient-to-r from-[#0a0a23] via-[#191919] to-[#2c1402]'>
+    <section className='faq-container px-5 mt-5 sm:flex sm:flex-row-reverse sm:justify-between sm:px-12'>
         <div className='sm:w-[650px]'>
         <div className='relative  '>
             <i className='fa fa-search text-[#848484] text-[18px] absolute left-3 top-1/2 transform -translate-y-1/2'></i>
@@ -89,4 +88,4 @@ const Faq = () => {
   )
 }
 
-export default Faq;
+export default Faq2
