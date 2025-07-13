@@ -23,6 +23,7 @@ function App() {
 
         <Route element={<LayoutB />}>
           <Route path='/start-course' element={<StartCourse />} />
+          <Route path="/faq" element={<Faq2 />} />
 
           {/* ✅ Nested routing works here */}
           <Route path='/course-section' element={<CourseSection />}>
@@ -30,12 +31,7 @@ function App() {
           </Route>
         </Route>
       </Routes>
-        <Route element={<LayoutB />}>
-          <Route path='/start-course' element={<StartCourse />} />
-          <Route path='/course-section' element={<CourseSection />} />
-          <Route path="/faq2" element={<Faq2 />} />
 
-        </Route>
     </>
   )
 }
