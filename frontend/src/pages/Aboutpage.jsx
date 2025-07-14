@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from '../components/Navbar'
-import Footer from '../components/Footer'
-import Background2 from '../components/Background2'
+// import Navbar from '../components/Navbar'
+// import Footer from '../components/Footer'
+// import Background2 from '../components/Background2'
 
 const Aboutpage = () => {
   return (

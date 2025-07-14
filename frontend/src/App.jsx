@@ -20,6 +20,7 @@ import LayoutB from './components/LayoutB'
 import CourseSection from './pages/CourseSection'
 import ShowSections from './components/ShowSections'
 import SectionVideos from './pages/SectionVideos'
+import AboutPage from './pages/Aboutpage'
 
 
 
@@ -31,6 +32,7 @@ function App() {
         <Route element={<LayoutA />}>
           <Route path='/' element={<Home />} />
           <Route path='/phone-number' element={<PhoneNUmber />} />
+          <Route path='/about' element={<AboutPage />} />
         </Route>
         {/* Layout B */}
         <Route element={<LayoutB />}>

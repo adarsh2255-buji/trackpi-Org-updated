@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import logo from '../assets/targetpi logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AlignJustify, X } from 'lucide-react';
 
 const HeaderA = () => {
   const [isOpen, setIsOpen] = useState(false);
+
+  const location = useLocation();
   const toggleMenu = () => setIsOpen(!isOpen);
 
   return (
@@ -16,9 +18,9 @@ const HeaderA = () => {
 
           {/* Desktop Nav */}
           <nav className='hidden md:flex gap-16 items-center'>
-            <Link to="#" className='font-medium text-[17px] hover:text-[#FFC100]'>HOME</Link>
-            <Link to="#" className='font-medium text-[17px] hover:text-[#FFC100]'>ABOUT</Link>
-            <Link to="#" className='font-medium text-[17px] hover:text-[#FFC100]'>CONNECT US</Link>
+            <Link to="/" className={`font-medium text-[17px] hover:text-[#FFC100] ${location.pathname === '/' ? "border-b-3 border-b-[#FF9D00]" : ""} `}>HOME</Link>
+            <Link to="/about"  className={`font-medium text-[17px] hover:text-[#FFC100] ${location.pathname === '/about' ? "border-b-3 border-b-[#FF9D00]" : ""} `}>ABOUT</Link>
+            <Link to="/connect-us" className={`font-medium text-[17px] hover:text-[#FFC100] ${location.pathname === '/about' ? "border-b-3 border-b-[#FF9D00]" : ""} `}>CONNECT US</Link>
           </nav>
 
           {/* Desktop Button */}
