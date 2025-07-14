@@ -1,12 +1,19 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import './css/LayoutB.css'
+import HeaderB from './HeaderB'
+import FooterB from './FooterB'
 
 const LayoutB = () => {
   return (
-    <div className='background-b'>
+    <>
+ 
+    <main className='background-b'>
+    <HeaderB />
         <Outlet />
-    </div>
+    <FooterB />
+    </main>
+    </>
   )
 }
 

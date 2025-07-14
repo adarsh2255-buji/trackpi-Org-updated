@@ -1,11 +1,12 @@
 import React, { useContext } from 'react'
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { CourseContext } from '../context/courseContext';
 import './css/WaveAnimation.css'
 
 const ShowSections = () => {
     const { courseId } = useParams();
     const { courses, loading } = useContext(CourseContext) 
+    const navigate = useNavigate()
 
     if (loading) {
       return <p className="text-white mt-5">Loading...</p>;
@@ -18,7 +19,6 @@ const ShowSections = () => {
     }
 
     const result = selectedCourse.sections.map((section) => section)
-    console.log(result)
 
     if(!selectedCourse) {
       <p className="text-white mt-5">No course found</p>
@@ -34,7 +34,9 @@ const ShowSections = () => {
     <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4'>
     {result.map((section, i) => (
       
-          <div className="w-[170px] h-[90px] sm:h-[150px] sm:w-[260px] rounded-[100px] bg-[#0A0A0A] text-white relative overflow-hidden flex flex-col justify-center gap-"  key={section._id}>
+          <div 
+          onClick={() => navigate(`/video-section/${section._id}`)}
+          className="w-[170px] h-[90px] sm:h-[150px] sm:w-[260px] rounded-[100px] bg-[#0A0A0A] text-white relative overflow-hidden flex flex-col justify-center gap-"  key={section._id}>
           {/* Step Number */}
           <span className="absolute top-4 sm:top-6 left-3 sm:left-4 text-[55px] sm:text-[75px] text-white/10 font-bold z-10">{i + 1}</span>
 
