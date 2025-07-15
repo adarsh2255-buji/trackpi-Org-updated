@@ -52,7 +52,7 @@ const SectionVideos = () => {
                   className="w-full h-full object-cover rounded-[8px]"
                 />
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[30px] h-[30px] bg-black bg-opacity-60 rounded-full flex items-center justify-center">
+                  <div className="w-[30px] h-[30px] text-white border bg-opacity-60 rounded-full flex items-center justify-center">
                     <FaPlay className="text-white text-[14px] ml-[2px]" />
                   </div>
                 </div>
