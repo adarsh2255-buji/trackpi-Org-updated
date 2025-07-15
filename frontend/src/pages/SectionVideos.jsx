@@ -1,25 +1,21 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CourseContext } from "../context/courseContext";
+import VideoThumbnail from "../assets/videothumbnail.png";
+import { FaPlay, FaExpand } from "react-icons/fa";
+import { MdOutlineReplay } from "react-icons/md";
+import { CiSearch } from "react-icons/ci";
 
 const SectionVideos = () => {
   const { id } = useParams();
   const { courses, loading } = useContext(CourseContext);
-  const [selectedVideo, setSelectedVideo] = useState(null);
 
   if (loading) {
     return <p className="text-white">Loading...</p>;
   }
 
   const allSections = courses.flatMap((course) => course.sections);
-  // console.log("URL param ID:", id);
-  // console.log(
-  //   "All Sections:",
-  //   allSections.map((sec) => sec._id)
-  // );
   const matchedSection = allSections.find((section) => section._id == id);
-  // const videoList = matchedSection.videos.map((video) => video.url);
-  // console.log(videoList);
 
   if (!matchedSection) {
     return <p className="text-white">No section found</p>;
@@ -28,42 +24,47 @@ const SectionVideos = () => {
   const { videos } = matchedSection;
 
   return (
-    <div className="flex px-12 pt-[110px] gap-10">
-      {/* Left Video List Panel */}
-      <div className="w-[374px] h-[858px] flex flex-col gap-[30px]">
+    <div className="text-white flex flex-col lg:flex-row px-4 sm:px-6 lg:px-12 pt-[10px] lg:pt-[30px] gap-10">
+      {/* Video List */}
+      <div className="w-full lg:w-[374px] h-auto lg:h-[858px] flex flex-col gap-[30px] order-2 lg:order-none">
         {/* Header */}
-        <div className="flex justify-between items-center w-[374px] h-[33px]">
-          <h2 className="text-white text-[28px] font-bold font-['Roboto'] text-center leading-[100%]">
-            {matchedSection.title}
+        <div className="flex justify-between items-center w-full h-[33px]">
+          <h2 className="text-[28px] font-bold font-['Roboto'] text-center leading-[100%]">
+            Section Name
           </h2>
-          <span className="text-white text-[20px] font-semibold font-['Roboto'] text-center leading-[100%]">
-            {selectedVideo
-              ? `${videos.indexOf(selectedVideo) + 1} / ${videos.length}`
-              : `0 / ${videos.length}`}
+          <span className="text-[20px] font-semibold font-['Roboto'] leading-[100%]">
+            2 / 10
           </span>
         </div>
 
-        {/* Videos List */}
-        <div className="flex flex-col gap-[15px] overflow-y-auto h-[795px] pr-2">
-          {videos.map((video, index) => (
+        {/* Video List Items */}
+        <div className="flex flex-col gap-[15px] pr-2">
+          {Array.from({ length: 6 }).map((_, index) => (
             <div
-              key={video._id}
-              className="w-[374px] h-[120px] border border-gray-600 rounded-[15px] p-[15px] flex gap-[14px] cursor-pointer hover:bg-gray-800"
-              onClick={() => setSelectedVideo(video)}
+              key={index}
+              className="w-full lg:w-[374px] h-[120px] border border-gray-600 rounded-[15px] p-[15px] flex gap-[14px] hover:bg-gray-800"
             >
-              {/* Thumbnail */}
-              <div className="w-[150px] h-[90px] rounded-[8px] bg-[#AEAEAE] flex items-center justify-center text-black text-sm font-bold">
-                Thumbnail
+              {/* Thumbnail with Play Icon */}
+              <div className="w-[150px] h-[90px] rounded-[8px] bg-[#AEAEAE] relative overflow-hidden">
+                <img
+                  src={VideoThumbnail}
+                  alt="Thumbnail"
+                  className="w-full h-full object-cover rounded-[8px]"
+                />
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-[30px] h-[30px] text-white border bg-opacity-60 rounded-full flex items-center justify-center">
+                    <FaPlay className="text-white text-[14px] ml-[2px]" />
+                  </div>
+                </div>
               </div>
 
               {/* Text Content */}
               <div className="w-[180px] h-[71px] flex flex-col justify-between gap-[10px]">
-                <h3 className="text-white text-[20px] font-semibold font-['Roboto'] leading-[100%]">
-                  {video.title || `Video ${index + 1}`}
+                <h3 className="text-[20px] font-semibold font-['Roboto'] leading-[100%]">
+                  Introduction Video
                 </h3>
-                <p className="text-white text-[16px] font-medium font-['Roboto'] leading-[100%]">
-                  {video.description ||
-                    "Introduction Video for the section of course"}
+                <p className="text-[16px] font-medium font-['Roboto'] leading-[100%]">
+                  Introduction Video for the section of course
                 </p>
               </div>
             </div>
@@ -71,87 +72,69 @@ const SectionVideos = () => {
         </div>
       </div>
 
-      {/* Right Video Section */}
-      <div className="flex-1 flex flex-col items-end pr-4">
-        {/* Search Bar */}
-        <div className="w-[369px] h-[44px] rounded-[15px] border border-[#676464] bg-[#8D8B8B1A] flex items-center px-[15px] gap-[15px] mb-4">
-          <span className="text-[#B3B6B6] text-[20px]">Icon</span>
-          <span className="text-[#B3B6B6] text-[16px] font-medium font-['Roboto'] leading-[100%]">
+      {/* Video Player */}
+      <div className="w-full flex-1 flex flex-col items-end pr-0 lg:pr-4 order-1 lg:order-none">
+        {/* Search bar */}
+        <div className="w-full max-w-[350px] h-[44px] rounded-[15px] border border-[#676464] bg-[#8D8B8B1A] flex items-center px-[15px] gap-[15px] mb-4">
+          <span className="text-[#B3B6B6] text-[20px]">
+            <CiSearch />
+          </span>
+          <span className="text-[#B3B6B6] text-[16px] font-medium font-['Roboto']">
             Search...
           </span>
         </div>
 
         {/* Video Box */}
-        <div className="w-[980px] h-[741px] rounded-[20px] flex flex-col justify-between p-[20px]">
-          {/* Video Area */}
-          <div className="w-full h-[650px] bg-[#3A3A3A] rounded-[20px] flex items-center justify-center relative">
-            {selectedVideo ? (
-              <video
-                src={selectedVideo.url}
-                controls
-                className="w-full h-full rounded-[20px] object-cover"
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center text-white">
-                <div className="w-[150px] h-[150px] flex items-center justify-center rounded-full border-4 border-white">
-                  {/* play icon will be add later */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="w-[60px] h-[60px] text-white"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M10 8l6 4-6 4V8z"
-                    />
-                  </svg>
+        <div className="rounded-xl px-0 py-0 flex flex-col gap-3 w-full max-w-[990px] mx-auto">
+          <div className="w-full h-[330px] lg:h-[650px] bg-[#3A3A3A] rounded-[6.7px] relative flex flex-col justify-center items-center px-[20px] pt-[15px] pb-[15px] gap-[20px]">
+            {/* Play Button */}
+            <button
+              className="absolute inset-0 flex items-center justify-center bg-transparent text-white text-4xl cursor-pointer"
+              aria-label="Play"
+            >
+              <div className="w-[150px] h-[150px] flex items-center justify-center">
+                <div className="w-[112.5px] h-[112.5px] border-[5px] border-white rounded-full flex items-center justify-center">
+                  <FaPlay className="w-8 h-8 ml-1" />
                 </div>
               </div>
-            )}
+            </button>
 
-            {/* Custom Duration Bar */}
-            <div className="absolute bottom-0 w-full px-[20px] py-[5px]">
-              {/* Progress Bar */}
-              <div className="w-full h-[4px] bg-white rounded-full mb-5 relative">
-                <div
-                  className="absolute top-0 left-0 h-[4px] bg-orange-500 rounded-full"
-                  style={{ width: "40%" }}
-                ></div>
-              </div>
-              <div className="w-full flex justify-between items-center mb-2 text-white text-[16px] font-medium font-['Urbanist']">
-                <div className="flex items-center gap-2">
-                  {/* Replay Icon */}
-                  <div className="w-[30px] h-[30px] flex items-center justify-center border-2 border-white rounded-full">
-                    <span className="text-sm">Replay</span>
-                  </div>
-                  <span>00:40</span>
+            {/* Timeline + Controls */}
+            <div className="w-full flex flex-col gap-[5px] z-10 mt-auto">
+              {/* Timeline */}
+              <div className="w-full h-[29px] flex items-center gap-[10px]">
+                <span className="w-[40px] text-[16px] font-medium font-['Urbanist'] text-white">
+                  00:40
+                </span>
+                <div className="flex-1 h-[6px] bg-white rounded">
+                  <div className="h-full w-[33%] bg-orange-500 rounded" />
                 </div>
-                <div className="flex items-center gap-2">
-                  <span>02:00</span>
-                  {/* Fullscreen Icon */}
-                  <div className="w-[30px] h-[30px] flex items-center justify-center border-2 border-white rounded-full">
-                    <span className="text-sm">FS</span>
-                  </div>
+                <span className="w-[40px] text-[16px] font-medium font-['Urbanist'] text-white text-right">
+                  02:00
+                </span>
+              </div>
+
+              {/* Controls */}
+              <div className="w-full flex justify-between items-center">
+                <div className="w-[30px] h-[30px] flex items-center justify-center">
+                  <MdOutlineReplay className="w-[22.5px] h-[22.5px]" />
+                </div>
+                <div className="w-[30px] h-[30px] flex items-center justify-center">
+                  <FaExpand className="w-[22.5px] h-[22.5px]" />
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Bottom Description */}
-          {selectedVideo && (
-            <div className="mt-4 text-white">
-              <h3 className="text-[22px] font-semibold font-['Roboto']">
-                Introduction Video
-              </h3>
-              <p className="text-[16px] font-medium font-['Roboto'] text-[#DDDDDD]">
-                Introduction Video for the section of course
-              </p>
-            </div>
-          )}
+          {/* Title & Description */}
+          <div className="text-left w-full text-white px-2 mt-3">
+            <h3 className="text-[20px] font-semibold font-['Roboto'] leading-[100%]">
+              Introduction Video
+            </h3>
+            <p className="text-[16px] font-medium font-['Roboto'] leading-[100%] mt-3">
+              Introduction Video for the section of course
+            </p>
+          </div>
         </div>
       </div>
     </div>
