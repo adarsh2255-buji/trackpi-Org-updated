@@ -78,35 +78,40 @@ function Home() {
         </div>
       </section>
 
-      <section className='px-3 md:px-20 grid md:grid-cols-2 gap-5'>
-        <div className="bg-black p-6 md:p-12 rounded-[20px] flex flex-col justify-between h-auto">
-          <p className="libre-franklin font-semibold text-lg md:text-2xl text-white tracking-wider">
-            "TrackPi is a platform that helps freelancers manage their projects. Our goal is to make freelancing seamless and profitable for everyone."
-          </p>
-          <p className="libre-franklin font-extrabold text-2xl md:text-3xl text-[#FFC727] mt-5">What is TrackPi?</p>
-        </div>
-        <div className="bg-black p-6 md:p-12 rounded-[20px] flex flex-col justify-between h-auto">
-          <p className="libre-franklin font-semibold text-lg md:text-2xl text-white tracking-wider">
-            Freelancing is a way of working where individuals offer their skills and services on a project basis rather than being employed full-time by a single company. It allows for flexibility, independence, and diverse work opportunities.
-          </p>
-          <p className="libre-franklin font-extrabold text-2xl md:text-3xl text-[#FFC727] mt-5">What is Freelancing?</p>
-        </div>
-      </section>
+ <section className="grid grid-cols-1 md:grid-cols-5 gap-5 px-4 md:px-20 mt-10">
+  {/* Card 1 - Compact (40%) */}
+  <div className="md:col-span-2 bg-black rounded-[15px] p-15 flex flex-col justify-between text-white shadow-md">
+    <p className="text-base md:text-xl leading-relaxed">
+      "TrackPi is a platform that helps freelancers manage their projects. Our goal is to make freelancing seamless and profitable for everyone."
+    </p>
+    <p className="text-[#FFC727] font-extrabold text-xl mt-4">What is TrackPi?</p>
+  </div>
 
-      <section className='px-4 md:px-20 grid md:grid-cols-2 gap-5 mt-5'>
-        <div className="bg-black p-6 md:p-12 rounded-[20px] flex flex-col justify-between h-auto">
-          <p className="libre-franklin font-semibold text-lg md:text-2xl text-white tracking-wider">
-            Access to high-quality projects from verified clients. A supportive network of like-minded freelancers. Free training courses to upskill and grow. Secure and timely payments for your work.
-          </p>
-          <p className="libre-franklin font-extrabold text-2xl md:text-3xl text-[#FFC727] mt-5">Why Join TrackPi's Freelancer Community?</p>
-        </div>
-        <div className="bg-black p-6 md:p-12 rounded-[20px] flex flex-col justify-between h-auto">
-          <p className="libre-franklin font-semibold text-lg md:text-2xl text-white tracking-wider">
-            Gain essential freelancing knowledge by Complete Training. Unlock the Freelancer Marketplace – Start receiving project offers. Work & Get Paid – Deliver quality work and earn.
-          </p>
-          <p className="libre-franklin font-extrabold text-2xl md:text-3xl text-[#FFC727] mt-5">How It Works?</p>
-        </div>
-      </section>
+  {/* Card 2 - Wide (60%) */}
+  <div className="md:col-span-3 bg-black rounded-[15px] p-15 flex flex-col justify-between text-white shadow-md">
+    <p className="text-base md:text-xl leading-relaxed">
+      "Freelancing is a way of working where individuals offer their skills and services on a project basis rather than being employed full-time by a single company. It allows for flexibility, independence, and diverse work opportunities."
+    </p>
+    <p className="text-[#FFC727] font-extrabold text-xl mt-4">What is Freelancing?</p>
+  </div>
+
+  {/* Card 3 - Wide (60%) */}
+  <div className="md:col-span-3 bg-black rounded-[15px] p-15 flex flex-col justify-between text-white shadow-md">
+    <p className="text-base md:text-xl leading-relaxed">
+      Access to high-quality projects from verified clients. A supportive network of like-minded freelancers. Free training courses to upskill and grow. Secure and timely payments for your work.
+    </p>
+    <p className="text-[#FFC727] font-extrabold text-xl mt-4">Why Join TrackPi's Freelancer Community?</p>
+  </div>
+
+  {/* Card 4 - Compact (40%) */}
+  <div className="md:col-span-2 bg-black rounded-[15px] p-15 flex flex-col justify-between text-white shadow-md">
+    <p className="text-base md:text-xl leading-relaxed">
+      Gain essential freelancing knowledge by Complete Training. Unlock the Freelancer Marketplace – Start receiving project offers. Work & Get Paid – Deliver quality work and earn.
+    </p>
+    <p className="text-[#FFC727] font-extrabold text-xl mt-4">How It Works?</p>
+  </div>
+</section>
+
 
       <section className='px-4 md:px-20 mt-10'>
         <h2 className='libre-franklin font-bold text-4xl md:text-6xl text-center text-white mb-10 tracking-wide'>High-Resolution Benefits</h2>
