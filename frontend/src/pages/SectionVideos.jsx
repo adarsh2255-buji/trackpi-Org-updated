@@ -39,9 +39,9 @@ const SectionVideos = () => {
 
         {/* Video List Items */}
         <div className="flex flex-col gap-[15px] pr-2">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {videos.map((video, index) => (
             <div
-              key={index}
+              key={video._id || index}
               className="w-full lg:w-[374px] h-[120px] border border-gray-600 rounded-[15px] p-[15px] flex gap-[14px] hover:bg-gray-800"
             >
               {/* Thumbnail with Play Icon */}
@@ -61,10 +61,10 @@ const SectionVideos = () => {
               {/* Text Content */}
               <div className="w-[180px] h-[71px] flex flex-col justify-between gap-[10px]">
                 <h3 className="text-[20px] font-semibold font-['Roboto'] leading-[100%]">
-                  Introduction Video
+                  {video.title || "Untitled Video"}
                 </h3>
                 <p className="text-[16px] font-medium font-['Roboto'] leading-[100%]">
-                  Introduction Video for the section of course
+                  {video.description || "No description available"}
                 </p>
               </div>
             </div>
@@ -87,9 +87,19 @@ const SectionVideos = () => {
         {/* Video Box */}
         <div className="rounded-xl px-0 py-0 flex flex-col gap-3 w-full max-w-[990px] mx-auto">
           <div className="w-full h-[330px] lg:h-[650px] bg-[#3A3A3A] rounded-[6.7px] relative flex flex-col justify-center items-center px-[20px] pt-[15px] pb-[15px] gap-[20px]">
-            {/* Play Button */}
+            
+            {/* Video Element */}
+            <video
+              src={videos[0]?.url}
+              controls={false}
+              muted
+              preload="metadata"
+              className="absolute inset-0 w-full h-full object-cover rounded-[6.7px]"
+            />
+
+            {/* Play Button Overlay */}
             <button
-              className="absolute inset-0 flex items-center justify-center bg-transparent text-white text-4xl cursor-pointer"
+              className="absolute inset-0 flex items-center justify-center bg-transparent text-white text-4xl cursor-pointer z-10"
               aria-label="Play"
             >
               <div className="w-[150px] h-[150px] flex items-center justify-center">
@@ -129,10 +139,10 @@ const SectionVideos = () => {
           {/* Title & Description */}
           <div className="text-left w-full text-white px-2 mt-3">
             <h3 className="text-[20px] font-semibold font-['Roboto'] leading-[100%]">
-              Introduction Video
+              {videos[0]?.title || "Introduction Video"}
             </h3>
             <p className="text-[16px] font-medium font-['Roboto'] leading-[100%] mt-3">
-              Introduction Video for the section of course
+              {videos[0]?.description || "Introduction Video for the section of course"}
             </p>
           </div>
         </div>
