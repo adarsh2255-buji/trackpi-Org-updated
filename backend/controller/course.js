@@ -109,3 +109,4 @@ export const addVideoToSection = async (req, res) => {
         res.status(500).json({ message: 'Failed to add video', error });
     }
 };
+
