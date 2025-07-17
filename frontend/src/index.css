@@ -10,7 +10,7 @@
     scrollbar-width: none;     /* Firefox */
   }
 
-  @keyframes scroll-right {
+  /* @keyframes scroll-right {
     0% {
       transform: translateX(-100%);
     }
@@ -22,4 +22,4 @@
   .scroll-animation {
     animation: scroll-right 20s linear infinite;
   }
-  
+   */
