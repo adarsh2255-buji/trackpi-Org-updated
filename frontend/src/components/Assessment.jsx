@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useNavigate } from 'react-router-dom';
 import AssessmentBubble from '../pages/AssessmentBubble'; // ✅ adjust path if needed
-import './css/Assessment.css';
+// import './css/Assessment.css';
 
 
 
@@ -237,8 +237,8 @@ const Assessment = () => {
     };
 
     return (
-        <div className='background-b text-white font-inter w-screen h-auto max-[768px]:mt-[60px]'>
-
+        // <div className='background-b text-white font-inter w-screen h-auto max-[768px]:mt-[60px]'>
+        <div className='text-white font-inter'>
 
             {/* ✅ Top Pagination Bubbles */}
             <AssessmentBubble currentPage={currentPage} setCurrentPage={setCurrentPage} />

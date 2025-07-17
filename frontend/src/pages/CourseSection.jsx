@@ -21,7 +21,8 @@ const CourseSection = () => {
 
   // console.log(courses);   
   return (
-    <>
+  
+     <div className="course-section-wrapper"> {/* ✅ New wrapper */}
     <section className='container-search px-5 '>
       <div className='flex justify-between mt-5'>
         <h1 className='text-white font-bold text-2xl roboto'>Courses</h1>
@@ -32,7 +33,8 @@ const CourseSection = () => {
                   name="search" 
                   id="search" 
                   placeholder='Search...'
-                  className='rounded-[15px] w-50 px-13.5 py-1.5 text-3 font-medium bg-transparent text-white roboto' />
+                  className='rounded-[15px] w-50 px-13.5 py-1.5 text-3 font-medium bg-transparent text-white roboto' 
+                  />
           </div>
       </div>
     </section>
@@ -79,8 +81,6 @@ const CourseSection = () => {
   className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black bg-opacity-70 text-white p-2 rounded-full">
     <ChevronRight size={18} />
 </button>
-
-
     </div>
 
     {/* course list ends  */}
@@ -90,8 +90,8 @@ const CourseSection = () => {
     <div className="px-5 mt-10">
         <Outlet />
       </div>
-    </>
-  )
-}
+    </div>
+  );
+};
 
 export default CourseSection
