@@ -9,3 +9,80 @@
 
 
   </div>
+
+
+section Video
+ <div className="w-full flex-1 flex flex-col items-end pr-0 lg:pr-4 order-1 lg:order-none">
+        {/* Search bar */}
+        <div className="w-full max-w-[350px] h-[44px] rounded-[15px] border border-[#676464] bg-[#8D8B8B1A] flex items-center px-[15px] gap-[15px] mb-3">
+          <span className="text-[#B3B6B6] text-[20px]">
+            <CiSearch />
+          </span>
+          <span className="text-[#B3B6B6] text-[16px] font-medium font-['Roboto']">
+            Search...
+          </span>
+        </div>
+
+        {/* Video Box */}
+        <div className="rounded-xl px-0 py-0 flex flex-col gap-3 w-full max-w-[990px] mx-auto">
+          <div className="w-full h-[330px] lg:h-[500px] bg-[#3A3A3A] rounded-[6.7px] relative flex flex-col justify-center items-center px-[20px] pt-[1px] pb-[15px] gap-[20px]">
+            
+            {/* Video Element */}
+            <video
+              src={videos[0]?.url}
+              controls={false}
+              muted
+              preload="metadata"
+              className="absolute inset-0 w-full h-full object-cover rounded-[6.7px]"
+            />
+
+            {/* Play Button Overlay */}
+            <button
+              className="absolute inset-0 flex items-center justify-center bg-transparent text-white text-4xl cursor-pointer z-10"
+              aria-label="Play"
+            >
+              <div className="w-[150px] h-[150px] flex items-center justify-center">
+                <div className="w-[112.5px] h-[112.5px] border-[5px] border-white rounded-full flex items-center justify-center">
+                  <FaPlay className="w-8 h-8 ml-1" />
+                </div>
+              </div>
+            </button>
+
+            {/* Timeline + Controls */}
+            <div className="w-full flex flex-col gap-[5px] z-10 mt-auto">
+              {/* Timeline */}
+              <div className="w-full h-[29px] flex items-center gap-[10px]">
+                <span className="w-[40px] text-[16px] font-medium font-['Urbanist'] text-white">
+                  00:40
+                </span>
+                <div className="flex-1 h-[6px] bg-white rounded">
+                  <div className="h-full w-[33%] bg-orange-500 rounded" />
+                </div>
+                <span className="w-[40px] text-[16px] font-medium font-['Urbanist'] text-white text-right">
+                  02:00
+                </span>
+              </div>
+
+              {/* Controls */}
+              <div className="w-full flex justify-between items-center">
+                <div className="w-[30px] h-[30px] flex items-center justify-center">
+                  <MdOutlineReplay className="w-[22.5px] h-[22.5px]" />
+                </div>
+                <div className="w-[30px] h-[30px] flex items-center justify-center">
+                  <FaExpand className="w-[22.5px] h-[22.5px]" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Title & Description */}
+          <div className="text-left w-full text-white px-2 ">
+            <h3 className="text-[30px] font-semibold font-['Roboto'] leading-[100%]">
+              {videos[0]?.title || "Introduction Video"}
+            </h3>
+            <p className="text-[22px] font-medium font-['Roboto'] leading-[100%] mt-2">
+              {videos[0]?.description || "Introduction Video for the section of course"}
+            </p>
+          </div>
+        </div>
+      </div>

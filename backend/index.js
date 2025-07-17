@@ -5,6 +5,7 @@ import connectDB from './config/database.js';
 import authRoutes from './routes/auth.js';
 import courseRoutes from './routes/course.js'
 import userAssessmentRoutes from './routes/userAssessment.js'
+import progressRoute from './routes/progressRoutes.js'
 
 dotenv.config();
 
@@ -16,6 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/auth', authRoutes);
 app.use('/api/course', courseRoutes);
 app.use('/api/assessment', userAssessmentRoutes);
+app.use("/api/progress", progressRoute)
+
 
 app.listen(5000, () => {
     console.log('Server is running on port 5000');
