@@ -1,13 +1,14 @@
 /* src/components/css/Assessment.css */
-.background-b {
-  min-height: 100vh !important;
-  position: relative !important;
+/* .background-b {
+  min-height: 100vh ;
+  position: relative ;
     background: linear-gradient(
     225.01deg,
     #6e470966 0%,
     #0000004d 45%,
     rgb(0, 12, 59) 100%
-  ) !important;
+  ) ;
+
   overflow: hidden;
 }
 
@@ -25,6 +26,6 @@
     #FF9D0066 0%,
     #000E4D4D 55%,
     #000E4DFF 100%
-  ) !important;
+  ) ;
   z-index: -1;
-}
+} */

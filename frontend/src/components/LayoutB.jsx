@@ -7,12 +7,12 @@ import FooterB from './FooterB'
 const LayoutB = () => {
   return (
     <>
- 
-    <main className='background-b'>
-    <HeaderB />
+
+      <main className='background-b'>
+        <HeaderB />
         <Outlet />
-    <FooterB />
-    </main>
+        <FooterB />
+      </main>
     </>
   )
 }
