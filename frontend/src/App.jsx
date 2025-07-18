@@ -56,7 +56,7 @@ function App() {
 
           <Route path='/video-section/:id' element={<SectionVideos />} />
         </Route>
-        {/* Layout css */}
+        {/* Layout C */}
         <Route element={<LayoutC />}>
         
         </Route>
