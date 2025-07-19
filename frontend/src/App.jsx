@@ -21,8 +21,6 @@ import CourseSection from './pages/CourseSection'
 import ShowSections from './components/ShowSections'
 import SectionVideos from './pages/SectionVideos'
 import AboutPage from './pages/Aboutpage'
-import LayoutC from './components/LayoutC'
-
 
 
 function App() {
@@ -54,6 +52,10 @@ function App() {
             <Route path=':courseId' element={<ShowSections />} />
           </Route>
           <Route path='/video-section/:id' element={<SectionVideos />} />
+        </Route>
+        {/* Layout C */}
+        <Route element={<LayoutC />}>
+        
         </Route>
       </Routes>
 
