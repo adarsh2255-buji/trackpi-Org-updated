@@ -54,15 +54,21 @@ export const updateWatchedVideo = async (req, res) => {
       progress = new Progress({
         userId,
         courseId,
-        watchedVideo : [videoId],
-        lastWatched: { videoId, sectionId}
+        watchedVideos: { [sectionId]: [videoId] },
+        lastWatched: { videoId, sectionId }
       });
-    } else{
-      if(!progress.watchedVideos.includes(videoId)){
-        progress.watchedVideos.push(videoId);
-      };
+    } else {
+      if (!progress.watchedVideos) progress.watchedVideos = {};
+      if (!progress.watchedVideos.get(sectionId)) {
+        progress.watchedVideos.set(sectionId, []);
+      }
+      const sectionVideos = progress.watchedVideos.get(sectionId);
+      if (!sectionVideos.includes(videoId)) {
+        sectionVideos.push(videoId);
+        progress.watchedVideos.set(sectionId, sectionVideos);
+      }
       progress.lastWatched = { videoId, sectionId };
-    };
+    }
     await progress.save();
     res.status(200).json({ message : "Progress updated", progress});
   } catch (err) {
@@ -82,22 +88,23 @@ export const markSectionComplete = async (req, res) => {
     const userAssessment = await UserAssessment.findOne({ userId, assessmentId: assessment._id, isPassed: true })
 
     // Check if all videos in section are watched
+    const watched = progress.watchedVideos?.get(sectionId) || [];
     const allWatched = section.videos.every(video =>
-      progress.watchedVideos.map(id => id.toString()).includes(video._id.toString()));
+      watched.map(id => id.toString()).includes(video._id.toString()));
 
-      if (!allWatched) {
-        return res.status(403).json({ message: "You must watch all videos in this section." });
-      }
+    if (!allWatched) {
+      return res.status(403).json({ message: "You must watch all videos in this section." });
+    }
 
-      if (!userAssessment) {
-        return res.status(403).json({ message: "You must pass the assessment for this section." });
-      }
+    if (!userAssessment) {
+      return res.status(403).json({ message: "You must pass the assessment for this section." });
+    }
 
-      if (!progress.completedSections.includes(sectionId)) {
-        progress.completedSections.push(sectionId);
-      }
+    if (!progress.completedSections.includes(sectionId)) {
+      progress.completedSections.push(sectionId);
+    }
 
-          // Check if all sections in the course are completed
+    // Check if all sections in the course are completed
     const allSectionsComplete = course.sections.every(section =>
       progress.completedSections.map(id => id.toString()).includes(section._id.toString())
     );
@@ -111,7 +118,7 @@ export const markSectionComplete = async (req, res) => {
     res.status(200).json({ message: "Section marked complete", progress });
 
   } catch (error) {
-    res.status(500).json({ message: "Failed to complete section", error: err.message });
+    res.status(500).json({ message: "Failed to complete section", error: error.message });
   }
 }
 
@@ -137,11 +144,17 @@ export const canAccessNextSection = async (userId, courseId, currentSectionId) =
 export const getProgressForCourse = async (req, res) => {
   const userId = req.user.id;
   const { courseId } = req.params;
+  const { sectionId } = req.query;
 
   try {
     const progress = await Progress.findOne({ userId, courseId });
     if (!progress) {
       return res.status(404).json({ message: "No progress found for this course." });
+    }
+    if (sectionId) {
+      // Return only watched videos for the requested section
+      const watchedVideos = progress.watchedVideos?.get(sectionId) || [];
+      return res.status(200).json({ watchedVideos });
     }
     res.status(200).json(progress);
   } catch (err) {

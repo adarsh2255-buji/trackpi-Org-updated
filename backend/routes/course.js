@@ -9,6 +9,7 @@ import {
   addVideoToSection,
   addSectionToCourse,
   removeSectionFromCourse,
+  getSectionById, // <-- import the new controller
 } from '../controller/course.js';
 import { createAssessmentWithQuestions, updateAssessmentWithQuestions, deleteAssessment } from '../controller/assessment.js';
 
@@ -33,6 +34,7 @@ router.put('/:id', updateCourse);
 router.delete('/:id', deleteCourse);
 
 // section routes
+router.get('/section/:sectionId', getSectionById);
 router.post('/:courseId/sections', addSectionToCourse);
 router.delete('/:courseId/sections/:sectionId', removeSectionFromCourse);
 

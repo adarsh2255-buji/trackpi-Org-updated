@@ -85,6 +85,8 @@ const CourseSection = () => {
 
     {/* course list ends  */}
  
+
+ {/* section list */}
     <div className="px-5 mt-10">
         <Outlet />
       </div>

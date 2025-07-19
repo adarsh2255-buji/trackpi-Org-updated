@@ -110,3 +110,18 @@ export const addVideoToSection = async (req, res) => {
     }
 };
 
+// Get section by sectionId
+export const getSectionById = async (req, res) => {
+    try {
+        const { sectionId } = req.params;
+        // Find the course that contains this section
+        const course = await Course.findOne({ 'sections._id': sectionId });
+        if (!course) return res.status(404).json({ message: 'Section not found' });
+        const section = course.sections.id(sectionId);
+        if (!section) return res.status(404).json({ message: 'Section not found' });
+        res.status(200).json(section);
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching section', error: error.message });
+    }
+}
+

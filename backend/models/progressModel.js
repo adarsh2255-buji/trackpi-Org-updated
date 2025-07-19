@@ -14,12 +14,14 @@ const progressSchema = new Schema({
     ref: 'Course',
     required: true,
   },
-  watchedVideos: [
-    {
+  watchedVideos: {
+    type: Map,
+    of: [{
       type: Schema.Types.ObjectId,
       ref: 'Video',
-    },
-  ],
+    }],
+    default: {},
+  },
   completedSections: [
     {
       type: Schema.Types.ObjectId,
