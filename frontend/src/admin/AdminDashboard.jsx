@@ -1,12 +1,13 @@
 import React from 'react';
-import AdminManagement from '../components/admin/AdminManagement';
+import AdminManagement from './AdminManagement';
+
 import PlusIcon from '../assets/plus.png';
 import TrashIcon from '../assets/trash.png';
 import LockIcon from '../assets/lock.png';
 import BellIcon from '../assets/bell.png';
 import UserIcon from '../assets/user.png';
 import DashboardIcon from '../assets/dashboard.png';
-import SearchIcon from "../assets/search2.png";
+import SearchIcon from '../assets/search2.png';
 
 
 const AdminDashboard = () => {

@@ -11,7 +11,7 @@ import AssessmentPassedPopup from "./Pages/AssessmentPassedPopup"
 import AssessmentFailedPopup from "./Pages/AssessmentFailedPopup"
 import AssessmentTimeUpPopup from './pages/AssessmentTimeUpPopup'
 import AssessmentTimeUpCongrats from './pages/AssessmentTimeupCongrats'
-import AdminDashboard from './pages/AdminDashboard'
+import AdminDashboard from './admin/AdminDashboard'
 
 // background layout
 import LayoutA from './components/LayoutA'
@@ -55,7 +55,7 @@ function App() {
         </Route>
         {/* Layout C */}
         <Route element={<LayoutC />}>
-        
+        <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Route>
       </Routes>
 

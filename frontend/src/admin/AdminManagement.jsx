@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import TrashIcon from '../../assets/trash.png';
-import EditIcon from '../../assets/edit.png';
-import LockIcon from '../../assets/lock.png';
-import SearchIcon from "../../assets/search2.png";
+import TrashIcon from '../assets/trash.png';
+import EditIcon from '../assets/edit.png';
+import LockIcon from '../assets/lock.png';
+import SearchIcon from "../assets/search2.png";
 
 // Create a full list of dummy admins
 const allAdmins = Array.from({ length: 50 }, (_, i) => ({
@@ -49,9 +49,7 @@ const AdminManagement = () => {
             </div>
 
             {/* Table */}
-            <div
-                className="overflow-x-auto w-[1334px] h-[712px] p-[30px] rounded-[20px] bg-white shadow border border-[#FFB300]"
-            >
+         <div className="overflow-x-auto w-[1334px] max-h-full p-[30px] rounded-[20px] bg-white shadow border border-[#FFB300]">
                 <table className="w-full text-left border-separate border-spacing-y-3">
                     <thead className="bg-[#FFB300] text-white h-[60px]">
                         <tr>
