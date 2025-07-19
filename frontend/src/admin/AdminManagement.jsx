@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import TrashIcon from '../assets/trash.png';
 import EditIcon from '../assets/edit.png';
@@ -14,6 +15,7 @@ const allAdmins = Array.from({ length: 50 }, (_, i) => ({
 }));
 
 const AdminManagement = () => {
+    const navigate = useNavigate();
     const itemsPerPage = 8;
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -24,6 +26,7 @@ const AdminManagement = () => {
     const totalPages = Math.ceil(allAdmins.length / itemsPerPage);
 
     return (
+    
         <div className="admin-management p-6 text-black">
             {/* Top Controls */}
             <div className="flex justify-between items-center mb-4">
@@ -91,14 +94,14 @@ const AdminManagement = () => {
                                     </span>
                                 </td>
                                 <td className="px-4 py-2 flex gap-3 items-center rounded-r-[5px]">
-                                    <button className="w-5 h-5">
+                                    <button className="w-5 h-5" onClick={() => navigate("/admin/delete")}>
                                         <img
                                             src={TrashIcon}
                                             alt="Delete"
                                             className="w-full h-full object-contain"
                                         />
                                     </button>
-                                    <button className="w-5 h-5">
+                                    <button className="w-5 h-5" onClick={() => navigate("/admin/edit")}>
                                         <img
                                             src={EditIcon}
                                             alt="Edit"
