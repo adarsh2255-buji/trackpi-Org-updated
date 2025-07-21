@@ -1,15 +1,47 @@
-import React from 'react';
-import {
-  FaSearch,
-  FaUser,
-  FaBell,
-  FaPlus,
-  FaTrash,
-  FaLock,
-  FaChevronDown,
-} from 'react-icons/fa';
+import React from "react";
+import { FaSearch, FaBell, FaRegTrashAlt } from "react-icons/fa";
+import { FiUsers, FiUser } from "react-icons/fi";
+import { AiOutlinePlus, AiOutlineUnlock } from "react-icons/ai";
 
 const UserManagement = () => {
+  const users = [
+    {
+      name: "John Doe",
+      username: "john_doe",
+      email: "john@example.com",
+      phone: "1234567890",
+      joined: "2023-01-01",
+      course: "React, Node",
+      status: "Active",
+    },
+    {
+      name: "John Doe",
+      username: "john_doe",
+      email: "john@example.com",
+      phone: "1234567890",
+      joined: "2023-01-01",
+      course: "React, Node",
+      status: "Active",
+    },
+    {
+      name: "John Doe",
+      username: "john_doe",
+      email: "john@example.com",
+      phone: "1234567890",
+      joined: "2023-01-01",
+      course: "React, Node",
+      status: "Active",
+    },
+    {
+      name: "Jane Smith",
+      username: "jane_smith",
+      email: "jane@example.com",
+      phone: "9876543210",
+      joined: "2023-03-15",
+      course: "Angular",
+      status: "Inactive",
+    },
+  ];
   return (
     <div className="pt-[60px] pl-20 font-[Poppins] bg-[#FAFAFA] min-h-screen overflow-x-hidden">
       {/* Top Content Container */}
@@ -17,7 +49,7 @@ const UserManagement = () => {
         {/* Left Side: Icon + Title + Search */}
         <div className="flex items-center gap-[20px]">
           <div className="flex items-center gap-[10px]">
-            <FaUser className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <FiUsers className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[20px] font-normal tracking-[0.02em] leading-[1] text-[#0A0A0A]">
               Users
             </span>
@@ -37,13 +69,13 @@ const UserManagement = () => {
         <div className="flex items-center gap-[10px]">
           <div className="flex items-center gap-[10px] bg-[#FFF1CF] border border-[#FFB300] rounded-[10px] px-[12px] py-[7px]">
             <div className="w-[30px] h-[30px] p-[4px] rounded-[6px] flex items-center justify-center">
-              <FaPlus className="text-[#000000] w-full h-full" />
+              <AiOutlinePlus className="text-[#000000] w-full h-full" />
             </div>
             <div className="w-[30px] h-[30px] p-[4px] rounded-[6px] flex items-center justify-center">
-              <FaTrash className="text-[#8F0000] w-full h-full" />
+              <FaRegTrashAlt className="text-[#8F0000] w-full h-full" />
             </div>
             <div className="w-[30px] h-[30px] p-[4px] rounded-[6px] flex items-center justify-center">
-              <FaLock className="text-[#000000] w-full h-full" />
+              <AiOutlineUnlock className="text-[#000000] w-full h-full" />
             </div>
           </div>
 
@@ -52,7 +84,7 @@ const UserManagement = () => {
               <FaBell className="text-[#000000]" />
             </div>
             <div className="w-[44px] h-[44px] p-[4px] bg-[#FFF1CF] border border-[#FFB300] rounded-full flex items-center justify-center">
-              <FaUser className="text-[#000000]" />
+              <FiUser className="text-[#000000]" />
             </div>
           </div>
         </div>
@@ -77,7 +109,7 @@ const UserManagement = () => {
 
           {/* Filter, Sort, Export Buttons */}
           <div className="flex items-center justify-center gap-[20px]">
-            {['Filter', 'Sort', 'Export'].map((label) => (
+            {["Filter", "Sort", "Export"].map((label) => (
               <button
                 key={label}
                 className="w-[90px] h-[44px] text-black text-center rounded-[10px] border border-[#00000040]"
@@ -89,63 +121,74 @@ const UserManagement = () => {
         </div>
 
         {/* Table Content */}
-        <div className="overflow-x-auto px-5">
-          <table className="w-full table-auto text-left">
+        <div className="overflow-x-auto px-5 pb-5">
+          <table className="w-full table-auto text-left border-separate border-spacing-y-3">
             <thead>
               <tr className="bg-[#FFB300] text-[#FFFF] text-sm font-semibold">
-                <th className="px-6 py-4">Name</th>
+                <th className="px-6 py-4 rounded-tl-[10px] rounded-bl-[5px]">
+                  <input type="radio" className="mr-2" name="selectAll" />
+                  Name
+                </th>
                 <th className="px-6 py-4">User Name</th>
                 <th className="px-6 py-4">Email ID</th>
                 <th className="px-6 py-4">Phone Number</th>
                 <th className="px-6 py-4">Joined</th>
                 <th className="px-6 py-4">Courses Enrolled</th>
                 <th className="px-6 py-4">Status</th>
-                <th className="px-6 py-4 text-right">Actions</th>
+                <th className="px-6 py-4 text-right rounded-tr-[10px] rounded-br-[5px]">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody className="text-[#333] text-sm">
-              {[
-                {
-                  name: 'John Doe',
-                  username: 'john_doe',
-                  email: 'john@example.com',
-                  phone: '1234567890',
-                  joined: '2023-01-01',
-                  course: 'React, Node',
-                  status: 'Active',
-                },
-                {
-                  name: 'Jane Smith',
-                  username: 'jane_smith',
-                  email: 'jane@example.com',
-                  phone: '9876543210',
-                  joined: '2023-03-15',
-                  course: 'Angular',
-                  status: 'Inactive',
-                },
-              ].map((user, idx) => (
-                <tr key={idx} className="border-t border-[#E5E7EB] hover:bg-[#FFFBEA]">
-                  <td className="px-6 py-4">{user.name}</td>
-                  <td className="px-6 py-4">{user.username}</td>
-                  <td className="px-6 py-4">{user.email}</td>
-                  <td className="px-6 py-4">{user.phone}</td>
-                  <td className="px-6 py-4">{user.joined}</td>
-                  <td className="px-6 py-4">{user.course}</td>
-                  <td className="px-6 py-4">
-                    <span
-                      className={`inline-block px-2 py-1 rounded-full text-xs font-medium ${
-                        user.status === 'Active'
-                          ? 'bg-green-100 text-green-700'
-                          : 'bg-red-100 text-red-700'
-                      }`}
-                    >
-                      {user.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex justify-end items-center gap-3">
-                      <FaTrash className="text-red-500 cursor-pointer" />
-                      <FaLock className="text-gray-700 cursor-pointer" />
+              {users.map((user, idx) => (
+                <tr
+                  key={idx}
+                  className={`rounded-[10px] ${
+                    idx % 2 === 0 ? "bg-[#FFFBEA]" : "bg-[#FFFFFF]"
+                  }`}
+                >
+                  <td
+                    colSpan={8}
+                    className="rounded-[10px] border border-[#FFB300] overflow-hidden"
+                  >
+                    <div className="grid grid-cols-8">
+                      <div className="px-6 py-4 flex items-center justify-center gap-2 col-span-1">
+                        <input type="radio" name="userSelect" />
+                        <span>{user.name}</span>
+                      </div>
+                      <div className="px-6 py-4 mr-10 flex items-center justify-center col-span-1">
+                        {user.username}
+                      </div>
+                      <div className="px-6 py-4 mr-5 flex items-center justify-center col-span-1">
+                        {user.email}
+                      </div>
+                      <div className="px-6 py-4 mr-4 flex items-center justify-center col-span-1">
+                        {user.phone}
+                      </div>
+                      <div className="px-6 py-4 mr-4 flex items-center justify-center col-span-1">
+                        {user.joined}
+                      </div>
+                      <div className="px-6 py-4 flex items-center justify-center col-span-1">
+                        {user.course}
+                      </div>
+                      <div className="px-6 py-4 flex items-center justify-center col-span-1">
+                        <span
+                          className={`inline-block px-5 ml-8 py-1 rounded-full text-xs font-medium ${
+                            user.status === "Active"
+                              ? "bg-[#10C500] text-[#FFFFFF]"
+                              : "bg-red-100 text-red-700"
+                          }`}
+                        >
+                          {user.status}
+                        </span>
+                      </div>
+                      <div className="px-6 ml-6 py-4 flex items-center justify-center col-span-1">
+                        <div className="flex items-center justify-center gap-3">
+                          <FaRegTrashAlt className="text-red-500 cursor-pointer" />
+                          <AiOutlineUnlock className="text-gray-700 cursor-pointer" />
+                        </div>
+                      </div>
                     </div>
                   </td>
                 </tr>
