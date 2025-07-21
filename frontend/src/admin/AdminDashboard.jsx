@@ -1,15 +1,18 @@
 import React from 'react';
-import AdminManagement from '../components/admin/AdminManagement';
+import { useNavigate } from "react-router-dom";
+
+import AdminManagement from './AdminManagement';
 import PlusIcon from '../assets/plus.png';
 import TrashIcon from '../assets/trash.png';
 import LockIcon from '../assets/lock.png';
 import BellIcon from '../assets/bell.png';
 import UserIcon from '../assets/user.png';
 import DashboardIcon from '../assets/dashboard.png';
-import SearchIcon from "../assets/search2.png";
+import SearchIcon from '../assets/search2.png';
 
 
 const AdminDashboard = () => {
+    const navigate = useNavigate();
     return (
         <div className="min-h-screen bg-white">
             {/* Top Navigation Bar */}
@@ -41,11 +44,13 @@ const AdminDashboard = () => {
                 <div className="flex items-center gap-3">
                     {/* Grouped Buttons */}
                     <div className="flex gap-3 bg-[#FFF0CE] rounded-[1rem] border-2 border-[#FFB300] px-4 py-2">
-                        <button>
+                        <button onClick={() => navigate("/admin/add")}>
                             <img src={PlusIcon} alt="Plus" className="w-5 h-5" />
                         </button>
-                        <button>
-                            <img src={TrashIcon} alt="Delete" className="w-5 h-5" />
+                        <button
+                            className="w-5 h-5"
+                            onClick={() => navigate("/admin/delete")}>
+                            <img src={TrashIcon} alt="Delete" className="w-full h-full object-contain" />
                         </button>
                         <button>
                             <img src={LockIcon} alt="Lock" className="w-5 h-5" />
