@@ -1,11 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import HeaderC from './HeaderC'
 
 const LayoutC = () => {
   return (
     <>
-    <main className=''>
-        <Outlet />
+    <main className='flex'>
+      <HeaderC />
+      <Outlet />
 
     </main>
     

@@ -13,6 +13,7 @@ import AssessmentTimeUpPopup from './pages/AssessmentTimeUpPopup'
 import AssessmentTimeUpCongrats from './pages/AssessmentTimeupCongrats'
 import AdminDashboard from './pages/AdminDashboard'
 
+
 // background layout
 import LayoutA from './components/LayoutA'
 import LayoutB from './components/LayoutB'
@@ -21,6 +22,7 @@ import CourseSection from './pages/CourseSection'
 import ShowSections from './components/ShowSections'
 import SectionVideos from './pages/SectionVideos'
 import AboutPage from './pages/Aboutpage'
+import UserManagement from './admin/UserManagement'
 
 
 function App() {
@@ -55,6 +57,7 @@ function App() {
         </Route>
         {/* Layout C */}
         <Route element={<LayoutC />}>
+          <Route path='/admin/user-management' element={<UserManagement />} />
         
         </Route>
       </Routes>

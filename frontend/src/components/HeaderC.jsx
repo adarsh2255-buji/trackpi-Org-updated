@@ -1,0 +1,122 @@
+import React from 'react';
+import { MdDashboard } from 'react-icons/md';
+import {
+  FaUserCog,
+  FaUsers,
+  FaChalkboardTeacher,
+  FaChartBar,
+  FaCommentDots,
+  FaUser,
+  FaCog,
+  FaSignOutAlt,
+} from 'react-icons/fa';
+
+import Logo from '../assets/targetpi logo.png'; // adjust if file is in different folder
+
+const HeaderC = () => {
+  return (
+    <div className="flex font-[Poppins] h-[100vh]">
+
+      {/* Sidebar */}
+      <div className="w-[315px] h-[100vh] bg-[#FFF0CE] border-r-[2px] border-[#FF9D00] rounded-tr-[20px] rounded-br-[20px] pt-[40px] flex flex-col gap-[54px] overflow-hidden">
+
+        {/* Logo */}
+        <div className="flex justify-center">
+          <img src={Logo} alt="Logo" className="w-[108.8px] h-[64px]" />
+        </div>
+
+        {/* Main Nav Links */}
+        <div className="flex flex-col gap-[5px] px-4">
+
+          {/* Dashboard */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] bg-[#FFB300] cursor-pointer">
+            <MdDashboard className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Dashboard
+            </span>
+          </div>
+
+          {/* Admin Management */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaUserCog className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Admin Management
+            </span>
+          </div>
+
+          {/* User Management */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaUsers className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              User Management
+            </span>
+          </div>
+
+          {/* Course Management */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaChalkboardTeacher className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Course Management
+            </span>
+          </div>
+
+          {/* Progress Tracking */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaChartBar className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Progress Tracking
+            </span>
+          </div>
+
+          {/* Feedback */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaCommentDots className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Feedback
+            </span>
+          </div>
+        </div>
+
+        {/* Bottom Nav Links + Backup Info */}
+        <div className="mt-auto px-4 flex flex-col gap-[5px]">
+
+          {/* Profile */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaUser className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Profile
+            </span>
+          </div>
+
+          {/* Settings */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaCog className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Settings
+            </span>
+          </div>
+
+          {/* Logout */}
+          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+            <FaSignOutAlt className="w-[24px] h-[24px] text-[#0A0A0A]" />
+            <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
+              Log Out
+            </span>
+          </div>
+
+          {/* Last Backup Info */}
+          <div className="text-center mt-5 pb-4">
+            <p className="text-[10px] font-medium opacity-70 tracking-[0.02em] text-[#0A0A0A] leading-[100%]">
+              Last backuped
+            </p>
+            <p className="text-[10px] font-normal opacity-70 tracking-[0.02em] text-[#0A0A0A] leading-[100%]">
+              June 08 2025, 11:45pm
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default HeaderC;
