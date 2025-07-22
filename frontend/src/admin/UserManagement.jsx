@@ -1,47 +1,113 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaSearch, FaBell, FaRegTrashAlt } from "react-icons/fa";
 import { FiUsers, FiUser } from "react-icons/fi";
 import { AiOutlinePlus, AiOutlineUnlock } from "react-icons/ai";
 
+// Dummy Data
+const users = [
+  {
+    name: "John Doe",
+    username: "john_doe",
+    email: "john@example.com",
+    phone: "1234567890",
+    joined: "2023-01-01",
+    course: "React, Node",
+    status: "Active",
+  },
+  {
+    name: "John Doe",
+    username: "john_doe",
+    email: "john@example.com",
+    phone: "1234567890",
+    joined: "2023-01-01",
+    course: "React, Node",
+    status: "Active",
+  },
+  {
+    name: "John Doe",
+    username: "john_doe",
+    email: "john@example.com",
+    phone: "1234567890",
+    joined: "2023-01-01",
+    course: "React, Node",
+    status: "Active",
+  },
+  {
+    name: "Jane Smith",
+    username: "jane_smith",
+    email: "jane@example.com",
+    phone: "9876543210",
+    joined: "2023-03-15",
+    course: "Angular",
+    status: "Inactive",
+  },
+  {
+    name: "Jane Smith",
+    username: "jane_smith",
+    email: "jane@example.com",
+    phone: "9876543210",
+    joined: "2023-03-15",
+    course: "Angular",
+    status: "Inactive",
+  },
+  {
+    name: "Jane Smith",
+    username: "jane_smith",
+    email: "jane@example.com",
+    phone: "9876543210",
+    joined: "2023-03-15",
+    course: "Angular",
+    status: "Inactive",
+  },
+  {
+    name: "Jane Smith",
+    username: "jane_smith",
+    email: "jane@example.com",
+    phone: "9876543210",
+    joined: "2023-03-15",
+    course: "Angular",
+    status: "Inactive",
+  },
+  {
+    name: "Jane Smith",
+    username: "jane_smith",
+    email: "jane@example.com",
+    phone: "9876543210",
+    joined: "2023-03-15",
+    course: "Angular",
+    status: "Inactive",
+  },
+  {
+    name: "Jane Smith",
+    username: "jane_smith",
+    email: "jane@example.com",
+    phone: "9876543210",
+    joined: "2023-03-15",
+    course: "Angular",
+    status: "Inactive",
+  },
+  {
+    name: "Jane Smith",
+    username: "jane_smith",
+    email: "jane@example.com",
+    phone: "9876543210",
+    joined: "2023-03-15",
+    course: "Angular",
+    status: "Inactive",
+  },
+];
+
 const UserManagement = () => {
-  const users = [
-    {
-      name: "John Doe",
-      username: "john_doe",
-      email: "john@example.com",
-      phone: "1234567890",
-      joined: "2023-01-01",
-      course: "React, Node",
-      status: "Active",
-    },
-    {
-      name: "John Doe",
-      username: "john_doe",
-      email: "john@example.com",
-      phone: "1234567890",
-      joined: "2023-01-01",
-      course: "React, Node",
-      status: "Active",
-    },
-    {
-      name: "John Doe",
-      username: "john_doe",
-      email: "john@example.com",
-      phone: "1234567890",
-      joined: "2023-01-01",
-      course: "React, Node",
-      status: "Active",
-    },
-    {
-      name: "Jane Smith",
-      username: "jane_smith",
-      email: "jane@example.com",
-      phone: "9876543210",
-      joined: "2023-03-15",
-      course: "Angular",
-      status: "Inactive",
-    },
-  ];
+  // const navigate = useNavigate();
+  const itemsPerPage = 8;
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfLast = currentPage * itemsPerPage;
+  const indexOfFirst = indexOfLast - itemsPerPage;
+  const currentAdmins = users.slice(indexOfFirst, indexOfLast);
+
+  const totalPages = Math.ceil(users.length / itemsPerPage);
+
   return (
     <div className="pt-[60px] pl-20 font-[Poppins] bg-[#FAFAFA] min-h-screen overflow-x-hidden">
       {/* Top Content Container */}
@@ -112,7 +178,7 @@ const UserManagement = () => {
             {["Filter", "Sort", "Export"].map((label) => (
               <button
                 key={label}
-                className="w-[90px] h-[44px] text-black text-center rounded-[10px] border border-[#00000040]"
+                className="w-[90px] h-[44px] text-black text-center rounded-[10px] border border-[#00000040] cursor-pointer"
               >
                 {label}
               </button>
@@ -141,7 +207,7 @@ const UserManagement = () => {
               </tr>
             </thead>
             <tbody className="text-[#333] text-sm">
-              {users.map((user, idx) => (
+              {currentAdmins.map((user, idx) => (
                 <tr
                   key={idx}
                   className={`rounded-[10px] ${
@@ -195,6 +261,47 @@ const UserManagement = () => {
               ))}
             </tbody>
           </table>
+        </div>
+      </div>
+      {/* Pagination */}
+      <div className="flex justify-between items-center mt-4">
+        {/* Previous Button on Left */}
+        <div>
+          <button
+            className="bg-[#FFF0CE] text-black rounded-[6px] shadow-[0px_0px_6px_0px_rgba(0,0,0,0.3)] px-[48px] py-[0px] w-[158px] h-[40px] disabled:opacity-50"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage(currentPage - 1)}
+          >
+            Previous
+          </button>
+        </div>
+
+        {/* Page Numbers in Center */}
+        <div className="w-[265px] h-[40px] flex items-center justify-center gap-4 backdrop-blur-[500px]">
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i + 1}
+              onClick={() => setCurrentPage(i + 1)}
+              className={`px-3 py-1 rounded ${
+                currentPage === i + 1
+                  ? "bg-yellow-500 text-white"
+                  : "bg-yellow-100"
+              }`}
+            >
+              {i + 1}
+            </button>
+          ))}
+        </div>
+
+        {/* Next Button on Right */}
+        <div>
+          <button
+            className="bg-[#FF9D00] text-black rounded-[6px] border border-[#FF9D00] shadow-[0px_1px_5px_0px_rgba(0,0,0,0.3)] px-[63px] py-[0px] w-[158px] h-[40px] disabled:opacity-50"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage(currentPage + 1)}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>
