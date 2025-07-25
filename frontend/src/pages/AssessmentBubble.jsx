@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
-const AssessmentBubble = ({ currentPage, setCurrentPage }) => {
-  const totalPages = 30;
+const AssessmentBubble = ({ currentPage, setCurrentPage, totalPages}) => {
+ 
   const [isMobile, setIsMobile] = useState(false);
   const visibleCount = isMobile ? 5 : 16;
 

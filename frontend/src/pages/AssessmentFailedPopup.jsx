@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AssessmentFailedPopup() {
+function AssessmentFailedPopup({ wrongAnswers = [], onGoBack, onRetake }) {
   return (
     <>
       <div
@@ -27,14 +27,18 @@ function AssessmentFailedPopup() {
             Questions you got wrong:
           </p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-            {[2, 3, 11, 17, 22].map((q) => (
-              <div
-                key={q}
-                className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white flex items-center justify-center text-base md:text-lg font-semibold"
-              >
-                {q}
-              </div>
-            ))}
+            {wrongAnswers.length > 0 ? (
+              wrongAnswers.map((q) => (
+                <div
+                  key={q}
+                  className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white flex items-center justify-center text-base md:text-lg font-semibold"
+                >
+                  {q}
+                </div>
+              ))
+            ) : (
+              <span className="text-gray-400">None</span>
+            )}
           </div>
         </div>
 
@@ -42,17 +46,20 @@ function AssessmentFailedPopup() {
           Take a moment to review the course content, then try again when you're ready.
         </p>
 
-        {/* ✅ Buttons - stay in row and resize on small screens */}
         <div className="flex justify-center items-center gap-2 w-full max-w-[300px] whitespace-nowrap mx-auto">
-  <button className="border border-yellow-400 text-white text-xs px-3 py-3 rounded-full hover:bg-yellow-500 hover:text-black transition w-[135px]">
-    Go to Course
-  </button>
-  <button className="bg-yellow-400 text-white text-xs px-3 py-3 rounded-full hover:bg-yellow-300 transition font-semibold w-[135px]">
-    Retake Assessment
-  </button>
-</div>
-
-
+          <button
+            className="border border-yellow-400 text-white text-xs px-3 py-3 rounded-full hover:bg-yellow-500 hover:text-black transition w-[135px]"
+            onClick={onGoBack}
+          >
+            Go to Course
+          </button>
+          <button
+            className="bg-yellow-400 text-white text-xs px-3 py-3 rounded-full hover:bg-yellow-300 transition font-semibold w-[135px]"
+            onClick={onRetake}
+          >
+            Retake Assessment
+          </button>
+        </div>
       </div>
     </>
   );

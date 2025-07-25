@@ -1,45 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 const PhoneNUmber = () => {
     const [phoneNumber, setPhoneNumber] = useState('');
+    const[error, setError] = useState('');
+    const { token, user, login } = useContext(AuthContext)
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const location = useLocation();
-
-    useEffect(() => {
-        const params = new URLSearchParams(location.search);
-        const token = params.get('token');
-        if(token) {
-            localStorage.setItem('token', token);
-        }
-    }, [location])
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
+        setError('');
         try {
-            const token = localStorage.getItem('token');
-            await axios.post(
-                'http://localhost:5000/auth/phone-number',
-                { phoneNumber },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-            navigate('/start-course');
-        } catch (error) {
-            alert('Failed to save phone number. Please try again.');
-            if (error.response?.data?.message) {
-                console.log(error.response.data.message);
-            }
-        } finally {
-            setLoading(false);
+          const res = await axios.put(`http://localhost:5000/api/users/${user._id}`,
+            { phoneNumber },
+            { headers: { Authorization: `Bearer ${token}` } }
+          );
+          login(token); // re-fetch user info
+          navigate('/start-course/dashboard');
+        } catch (err) {
+          setError(err.response?.data?.error || 'Failed to update phone number');
         }
-    };
+      };
 
     return (
         <div className="w-full flex justify-center items-center min-h-screen bg-black px-4">
@@ -87,6 +71,7 @@ const PhoneNUmber = () => {
                             {loading ? 'Saving...' : 'Create Profile'}
                         </button>
                     </div>
+                    {error && <div className="text-red-600 text-sm">{error}</div>}
                 </form>
             </div>
         </div>

@@ -1,237 +1,275 @@
 // Refactored Video Section Component with Auth Header + Backend Sync
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { CourseContext } from "../context/courseContext";
-import { AuthContext } from "../context/authContext";
-import VideoThumbnail from "../assets/videothumbnail.png";
-import { FaPlay } from "react-icons/fa";
 import axios from "axios";
+import { AuthContext } from '../context/AuthContext'
+import { ProgressContext } from "../context/ProgressContext";
 
 const SectionVideos = () => {
-  const { id: sectionId } = useParams();
-  const { courses, loading } = useContext(CourseContext);
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-
+  const [section, setSection] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState(null);
-  const [unlockedVideos, setUnlockedVideos] = useState([]);
-  const [showNextPopup, setShowNextPopup] = useState(false);
-  const [showAssessmentPopup, setShowAssessmentPopup] = useState(false);
+  const [completedVideos, setCompletedVideos] = useState([]);
+  const [showPopup, setShowPopup] = useState(false);
 
+  const { courseId, sectionId } = useParams();
+  const navigate = useNavigate();
+  const { token } = useContext(AuthContext)
+  const { notifyProgressChanged } = useContext(ProgressContext)
+
+  const videoRef = useRef(null);
+
+  //fetch section and progress data
   useEffect(() => {
-    if (loading || !courses?.length || !user?.token) return;
-
-    const allSections = courses.flatMap(course =>
-      course.sections.map(sec => ({ ...sec, courseId: course._id }))
-    );
-    const matched = allSections.find(section => section._id === sectionId);
-
-    if (!matched?.videos?.length) return;
-
-    const fetchProgress = async () => {
+  const fetchSectionAndProgress = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/progress/${matched.courseId}`, {
-          headers: { Authorization: `Bearer ${user.token}` },
-        });
-
-        const { watchedVideos, lastWatched } = res.data;
-        const unlockedIds = watchedVideos.map(id => id.toString());
-
-        if (!unlockedIds.includes(matched.videos[0]._id)) {
-          unlockedIds.push(matched.videos[0]._id);
+        const sectionRes = await axios.get(`http://localhost:5000/api/sections/${sectionId}`);
+        console.log(sectionRes.data)
+        const progressRes = await axios.get(
+          `http://localhost:5000/api/progress/${courseId}/${sectionId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+  
+        const sectionData = sectionRes.data;
+        const completed = progressRes.data?.completedVideos || [];
+  
+        setSection(sectionData);
+        setCompletedVideos(completed);
+  
+        if (sectionData.units && sectionData.units.length > 0) {
+          setVideos(sectionData.units);
+          // Select first unwatched video, or first video
+          const firstUnwatched = sectionData.units.find(v => !completed.includes(v.videoID)) || sectionData.units[0];
+          setSelectedVideo(firstUnwatched);
+        } else {
+          setVideos([]);
+          setSelectedVideo(null);
         }
+      } catch (error) {
+        console.error("Error fetching section/progress:", error);
+        setVideos([]);
+        setSelectedVideo(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+  
+    if (sectionId && token) {
+      fetchSectionAndProgress();
+    }
+  }, [sectionId, courseId, token]);
+  
 
-        setUnlockedVideos(unlockedIds);
+    // handle video end
+      const handleVideoEnd = () => {
+        setShowPopup(true);
+      };
 
-        const last = lastWatched?.videoId;
-        const selected = matched.videos.find(v => v._id === last) || matched.videos[0];
-        setSelectedVideo(selected);
-      } catch (err) {
-        console.error("Failed to fetch progress", err);
-        setUnlockedVideos([matched.videos[0]._id]);
-        setSelectedVideo(matched.videos[0]);
+    // handle play again
+    const handlePlayAgain = () => {
+      if (videoRef.current) {
+        videoRef.current.currentTime = 0;
+        videoRef.current.play();
+      }
+      setShowPopup(false);
+    };
+
+    // handle play next
+    const handlePlayNext = async () => {
+      try {
+        await axios.post(
+          'http://localhost:5000/api/progress/watch-video',
+          { courseId, sectionId, videoId: selectedVideo.videoID },
+          {headers:{Authorization: `Bearer ${token}`}}
+        );
+        notifyProgressChanged();
+        const updatedCompleted = [...completedVideos, selectedVideo.videoID];
+        setCompletedVideos(updatedCompleted)
+        // find next video
+        const nextIndex = videos.findIndex(v => v.videoID === selectedVideo.videoID) + 1;
+        const nextVideo = videos[nextIndex];
+        setSelectedVideo(nextVideo || selectedVideo) // stay on same if no next
+        setShowPopup(false)
+      } catch (error) {
+        console.error("Error marking video as watched")
       }
     };
 
-    fetchProgress();
-  }, [courses, loading, sectionId, user]);
-
-  if (loading) return <p className="text-white">Loading...</p>;
-
-  const allSections = courses.flatMap(course =>
-    course.sections.map(sec => ({ ...sec, courseId: course._id }))
-  );
-  const matchedSection = allSections.find(section => section._id === sectionId);
-
-  if (!matchedSection) return <p className="text-white">No section found</p>;
-
-  const { videos, courseId } = matchedSection;
-
-  const playNext = async () => {
-    const currentIndex = videos.findIndex(v => v._id === selectedVideo._id);
-    const nextVideo = videos[currentIndex + 1];
-
-    try {
-      await axios.post(
-        "http://localhost:5000/api/progress/watch",
-        {
-          courseId,
-          sectionId,
-          videoId: selectedVideo._id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      );
-
-      if (nextVideo) {
-        setUnlockedVideos(prev => [...prev, nextVideo._id]);
-        setSelectedVideo(nextVideo);
-      } else {
-        setShowAssessmentPopup(true);
+  // handle unlock assessment
+    const handleUnlockAssessment = async () => {
+      try {
+        await axios.post(
+          'http://localhost:5000/api/progress/watch-video',
+          { courseId, sectionId, videoId: selectedVideo.videoID },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+          notifyProgressChanged();
+        setCompletedVideos([...completedVideos, selectedVideo.videoID]);
+        setShowPopup(false);
+        navigate(`/course-section/${courseId}`);
+      } catch (error) {
+        console.error("Error marking last video as watched");
+        // Optionally, show an error message to the user
       }
-      setShowNextPopup(false);
-    } catch (err) {
-      console.error("Failed to update progress", err);
-    }
-  };
+    };
+  // Only unlock the first video, and then unlock next if previous is completed
+    const isVideoLocked = (video, idx) => {
+      if (idx === 0) return false; // First video always unlocked
+      // Only unlock if ALL previous videos are completed
+      return !videos.slice(0, idx).every(v => completedVideos.includes(v.videoID));
+    };
 
-  const restartSection = () => {
-    setSelectedVideo(videos[0]);
-    setShowAssessmentPopup(false);
-    setUnlockedVideos([videos[0]._id]);
-  };
 
-  // hanlde unlock assessment
-  const handleUnlockAssessment = async () => {
-    try {
-      // Save all unlocked videos to backend
-      await Promise.all(
-        unlockedVideos.map(videoId =>
-          axios.post(
-            "http://localhost:5000/api/progress/watch",
-            { courseId, sectionId, videoId },
-            {
-              headers: { Authorization: `Bearer ${user.token}` },
-            }
-          )
-        )
-      );
-  
-      // Navigate to assessment
-      navigate(`/course-section/${courseId}`);
-    } catch (error) {
-      console.error("Failed to save progress for all videos", error);
-    }
-  };
-  
+   
+    if (loading) return <div className="flex items-center justify-center min-h-screen">Loading...</div>;
 
 
   return (
+    <>
     <div className="text-white px-4 sm:px-6 lg:px-12">
       {/* Search */}
-      <div className="flex justify-center px-5 sm:justify-end mb-5">
+      <div className="flex justify-center px-5 sm:justify-between sm:items-center sm:py-4 mb-5 sm:mb-0">
+      <h4 className="">{section?.sectionName}</h4>
         <div className="relative w-full sm:w-[368px]">
           <i className="fa fa-search text-[#B3B6B6] text-[18px] absolute left-3 top-1/2 transform -translate-y-1/2"></i>
           <input
             type="search"
             placeholder="Search..."
-            className="rounded-[15px] w-full pl-10 py-1.5 text-3 font-medium bg-transparent text-white roboto"
+            className="rounded-[15px] w-full pl-10 py-1.5 text-3 font-medium bg-transparent text-white border roboto"
           />
         </div>
       </div>
 
-      {/* Content */}
-      <div className="flex flex-col lg:flex-row gap-10">
-        {/* Video List */}
-        <div className="w-full lg:w-[374px] flex flex-col gap-6 order-2 lg:order-1">
-          <div className="flex justify-between items-center">
-            <h2 className="text-[28px] font-bold">Section Videos</h2>
-            <span className="text-[20px] font-semibold">
-              {videos.findIndex(v => v._id === selectedVideo?._id) + 1} / {videos.length}
-            </span>
-          </div>
-          <div className="flex flex-col gap-4 pr-2">
-            {videos.map((video, index) => (
-              <div
-                key={video._id || index}
-                onClick={() => unlockedVideos.includes(video._id) && setSelectedVideo(video)}
-                className={`cursor-pointer p-4 border rounded-lg flex gap-4 ${
-                  unlockedVideos.includes(video._id) ? "hover:bg-gray-800" : "opacity-50 cursor-not-allowed"
-                }`}
-              >
-                <div className="w-[150px] h-[90px] rounded bg-[#AEAEAE] relative overflow-hidden">
-                  <img src={VideoThumbnail} alt="Thumbnail" className="w-full h-full object-cover rounded" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-[30px] h-[30px] text-white bg-opacity-60 rounded-full flex items-center justify-center">
-                      <FaPlay className="text-white text-sm ml-[2px]" />
-                    </div>
-                  </div>
-                </div>
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold">{video.title}</h3>
-                  <p className="text-sm">{video.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+
+          
+
+         
+    </div>
+
+    <div className="px-10 sm:flex sm:flex-row-reverse gap-5 sm:items-start">
+      {selectedVideo ? (
+        <div className=" flex flex-col gap-5">
+        <video 
+        ref={(videoRef)}
+        src={selectedVideo.videoID} 
+        onEnded={handleVideoEnd}
+        className="w-[330px] h-[219px] border sm:w-[980px] sm:h-[480px]"
+        controls></video>
+        <div>
+          <h3 className="font-semibold text-[20px] text-white">{selectedVideo.unitName}</h3>
+          <p>{selectedVideo.unitDescription}</p>
         </div>
+      </div>
+      ): (
+        <p>No video selected</p>
+      )}
 
-        {/* Video Player */}
-        <div className="flex-1 order-1 lg:order-2 relative">
-          <video
-            src={selectedVideo?.url}
-            controls
-            className="rounded w-full"
-            onEnded={() => {
-              const currentIndex = videos.findIndex(v => v._id === selectedVideo._id);
-              if (currentIndex === videos.length - 1) {
-                setShowAssessmentPopup(true);
-              } else {
-                setShowNextPopup(true);
-              }
-            }}
-          ></video>
-          <h3 className="font-semibold text-lg mt-4">{selectedVideo?.title}</h3>
-          <p className="text-sm">{selectedVideo?.desc}</p>
-
-          {/* Popup: Next video */}
-          {showNextPopup && (
-            <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-90 p-6 rounded-lg text-center w-[90%] max-w-md">
-              <p className="mb-4">Would you like to continue to the next video or watch this one once more?</p>
-              <div className="flex justify-center gap-4">
-                <button onClick={() => setShowNextPopup(false)} className="px-6 py-2 border rounded-full">
-                  Play Again
-                </button>
-                <button onClick={playNext} className="px-6 py-2 border bg-[#FF9D00] text-white rounded-full">
-                  Play Next
-                </button>
-              </div>
-            </div>
-          )}
-
-          {/* Popup: Assessment */}
-          {showAssessmentPopup && (
-            <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-90 p-6 rounded-lg text-center w-[90%] max-w-md">
+      {/* popup button */}
+       {/* Popup: Assessment */}
+         
+            {/* <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 bg-black bg-opacity-90 p-6 rounded-lg text-center w-[90%] max-w-md">
               <p className="mb-4">Ready to take the assessment or review the section?</p>
               <div className="flex justify-center gap-4">
-                <button onClick={restartSection} className="px-6 py-2 border rounded-full">
+                <button  className="px-6 py-2 border rounded-full">
                   Watch Again
                 </button>
                 <button
-                  onClick={handleUnlockAssessment}
+                  
                   className="px-6 py-2 border bg-[#FF9D00] text-white rounded-full"
                 >
                   Unlock Assessment
                 </button>
               </div>
-            </div>
-          )}
+            </div> */}
+          
+        {/* </div> */}
+      {/* </div> */}
+      {showPopup && (
+        <div className="absolute inset-0 bg-opacity-50 flex  justify-end items-center  rounded">
+          <div className=" p-6 rounded shadow-md text-center space-y-4  bg-black/90 w-[330px] h-[219px]  sm:w-[880px] sm:h-[460px]
+          flex justify-center items-center">
+            {(() => {
+              const isLastVideo = videos.findIndex(v => v.videoID === selectedVideo?.videoID) === videos.length -1;
+              if(isLastVideo) {
+                return(
+                  <>
+                    
+                    <div className="w-[429px] h-[135px] ">
+                    <p className="roboto font-semibold text-white text-[22px] text-center">
+                      Are you ready to start the assessment, or would you prefer to go over this section once more?</p>
+                    <div className="mt-5 flex gap-5">
+                    <button
+                    onClick={handlePlayAgain}
+                    className="text-white border border-white w-[208px] h-[45px] rounded-[40px] py-3 px-7.5 roboto font-semibold text-[18px] text-center cursor-pointer"
+                    >Watch again</button>
+                    <button
+                    className="text-white bg-[#FF9D00] border border-[#FF9D00] w-[262px] h-[45px] rounded-[40px] py-3 px-7.5 roboto font-semibold text-[18px] text-center cursor-pointer"
+                    onClick={handleUnlockAssessment}>Unlock Assessment</button>
+                    </div>
+
+                 </div>
+                 </>
+                );
+              } else {
+                return (
+                  <>
+                  <div className="w-[429px] h-[135px] ">
+                  <p
+                  className="roboto font-semibold text-white text-[22px] text-center"
+                  >Would you like to continue to the next video or watch this one once more?</p>
+                  <div className="mt-5 flex gap-5">
+                  <button
+                  onClick={handlePlayAgain} 
+                  className="text-white border border-white w-[208px] h-[45px] rounded-[40px] py-3 px-7.5 roboto font-semibold text-[18px] text-center cursor-pointer">
+                    Play Again</button>
+                  <button 
+                  className="text-white bg-[#FF9D00] border border-[#FF9D00] w-[208px] h-[45px] rounded-[40px] py-3 px-7.5 roboto font-semibold text-[18px] text-center cursor-pointer"
+                  onClick={handlePlayNext}>Play Next</button>
+                  </div>
+                  </div>
+                  </>
+                )
+              }
+            })()}
+          </div>
         </div>
-      </div>
+      )}
+        
+
+        {/* unit list */}
+        <div className="mt-5 sm:mt-0">
+          <div>
+            {videos.length === 0 ? (
+              <div>No videos found for this section.</div>
+            ) : (
+              <ul className="flex flex-col gap-5">
+                {videos.map((video, idx) => {
+                  const isLocked = isVideoLocked(video, idx);
+                  return (<li 
+                  key={`${video.videoID}-${idx}`}
+                  onClick={() => !isLocked && setSelectedVideo(video)}
+                  className={`flex flex-row justify-between items-center gap-3 p-2 border rounded-[12px] cursor-pointer bg-black ${
+                    selectedVideo?.videoID === video.videoID ? '' : ''
+                  } ${isLocked ? 'pointer-events-none filter blur-sm opacity-60' : ''}`}
+                      style={{ filter: isLocked ? 'blur(1px)' : 'none', opacity: isLocked ? 0.6 : 1 }}>
+                    <div className="w-[128px] h-[77px] border rounded-[7px]"></div>
+                    <div>
+                      <h4 className="font-semibold text-[17px]">{video.unitName}</h4>
+                      <p className="font-medium text-[13px]">{video.unitDescription}</p>
+                    </div>
+                  </li>
+                  )})}
+              </ul>
+            )}
+          </div>
+        </div>
+       
     </div>
+    
+    </>
   );
 };
 

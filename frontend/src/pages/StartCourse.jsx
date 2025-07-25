@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext} from 'react'
 import followersAvatar from '../assets/followersAvatar.png'
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import ProgressSVG from '../components/ProgressSVG';
 import ProgressArrow from '../components/ProgressArrow';
 import squreLock from '../assets/square-lock-02.png'
@@ -8,8 +8,9 @@ import { AuthContext } from '../context/AuthContext';
 
 const StartCourse = () => {
     const { user } = useContext(AuthContext)
+    const navigate = useNavigate()
     console.log(user)
-    const location = useLocation();
+
 
 
         

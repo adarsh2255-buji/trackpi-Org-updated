@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function AssessmentFirstPopup() {
+function AssessmentFirstPopup({ maxAttempts, onButtonClick }) {
   const navigate = useNavigate();
 
   return (
@@ -57,7 +57,7 @@ function AssessmentFirstPopup() {
 
               <div className="flex flex-col items-center justify-center gap-2 h-[70px] md:h-[118px] border border-[#303030] rounded-[10px] px-4 md:px-[40px] py-3 md:py-[15px] text-center">
                 <p className="font-medium text-sm md:text-base">Number of attempts left</p>
-                <p className="text-xl md:text-3xl font-bold">05</p>
+                <p className="text-xl md:text-3xl font-bold">0{maxAttempts}</p>
               </div>
             </div>
 
@@ -69,7 +69,7 @@ function AssessmentFirstPopup() {
           {/* Button */}
           <div className="flex justify-center mt-3 md:mt-8">
             <button
-              onClick={() => navigate('/main-assessment')}
+              onClick={onButtonClick}
               className="text-white font-semibold text-xs md:text-sm rounded-[40px] border border-black w-[90%] max-w-[217px] h-[38px] md:h-[43px] px-4 md:px-[20px] py-2 md:py-[12px] bg-[#FF9D00] hover:opacity-90 transition"
             >
               Ok, Start Assessment

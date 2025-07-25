@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { CourseContext } from "../context/courseContext";
+
 import axios from "axios";
-import { AuthContext } from "../context/authContext";
+
 import "./css/WaveAnimation.css";
 
 const WIDTH = 260;
@@ -13,11 +13,11 @@ const WAVE_SPEED = 1.5;
 
 const ShowSections = () => {
   const { courseId } = useParams();
-  const { courses, loading } = useContext(CourseContext);
+
   const [progress, setProgress] = useState();
   const [phase, setPhase] = useState(0);
 
-  const { user } = useContext(AuthContext);
+
 
 
 
@@ -64,46 +64,7 @@ const ShowSections = () => {
   }, [progress]);
 
 
-  useEffect(() => {
-    const fetchProgress = async () => {
-      const selectedCourse = courses.find((course) => course._id === courseId);
-      if (!user?.token || !selectedCourse?._id) return;
-      const sectionId = [selectedCourse.sections[0]._id]
-      const sectionIdStr = selectedCourse.sections[0]._id
-      console.log(sectionIdStr)
-      try {
-        const res2 = await axios.get(`http://localhost:5000/api/course/section/${sectionIdStr}`)
-        const res1 = await axios.get(
-          `http://localhost:5000/api/progress/${selectedCourse._id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
-        const totalVideos = res2.data.videos.length
-        
-        const watchedVideos = res1.data.watchedVideos[sectionId] || [];
-        const totalWatchedVideos = watchedVideos.length
-        console.log(totalWatchedVideos)
-        const percentage = totalVideos > 0 ? Math.round((totalWatchedVideos/totalVideos) * 100 ) : 0
-        setProgress(percentage);
-      } catch (err) {
-        console.error("Failed to fetch progress", err);
-      }
-    };
-    fetchProgress();
-  }, [user, courses, courseId]);
-
-  if (loading) {
-    return <p className="text-white mt-5">Loading...</p>;
-  }
-
-  const selectedCourse = courses.find((course) => course._id === courseId);
-
-  if (!selectedCourse) {
-    return <p className="text-white mt-5">No course found</p>;
-  }
+  
 
   return (
     <div className="text-white mt-5">
