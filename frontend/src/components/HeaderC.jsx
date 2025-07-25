@@ -15,10 +15,10 @@ import Logo from '../assets/targetpi logo.png'; // adjust if file is in differen
 
 const HeaderC = () => {
   return (
-    <div className="flex font-[Poppins] h-[100vh]">
+    <div className="flex font-[Poppins] h-[960px]">
 
       {/* Sidebar */}
-      <div className="w-[315px] h-[100vh] bg-[#FFF0CE] border-r-[2px] border-[#FF9D00] rounded-tr-[20px] rounded-br-[20px] pt-[40px] flex flex-col gap-[54px] overflow-hidden">
+      <div className="w-[315px] h-[960px] bg-[#FFF0CE] border-r-[2px] border-[#FF9D00] rounded-tr-[20px] rounded-br-[20px] pt-[40px] flex flex-col gap-[54px] overflow-hidden">
 
         {/* Logo */}
         <div className="flex justify-center">
@@ -26,10 +26,10 @@ const HeaderC = () => {
         </div>
 
         {/* Main Nav Links */}
-        <div className="flex flex-col gap-[5px] px-4">
+        <div className="flex flex-col gap-[20px] px-4">
 
           {/* Dashboard */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] bg-[#FFB300] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] bg-[#FFB300] cursor-pointer">
             <MdDashboard className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Dashboard
@@ -37,7 +37,7 @@ const HeaderC = () => {
           </div>
 
           {/* Admin Management */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaUserCog className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Admin Management
@@ -45,7 +45,7 @@ const HeaderC = () => {
           </div>
 
           {/* User Management */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaUsers className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               User Management
@@ -53,7 +53,7 @@ const HeaderC = () => {
           </div>
 
           {/* Course Management */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaChalkboardTeacher className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Course Management
@@ -61,7 +61,7 @@ const HeaderC = () => {
           </div>
 
           {/* Progress Tracking */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaChartBar className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Progress Tracking
@@ -69,7 +69,7 @@ const HeaderC = () => {
           </div>
 
           {/* Feedback */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaCommentDots className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Feedback
@@ -78,10 +78,10 @@ const HeaderC = () => {
         </div>
 
         {/* Bottom Nav Links + Backup Info */}
-        <div className="mt-auto px-4 flex flex-col gap-[5px]">
+        <div className="mt-auto px-4 flex flex-col gap-[20px]">
 
           {/* Profile */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaUser className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Profile
@@ -89,7 +89,7 @@ const HeaderC = () => {
           </div>
 
           {/* Settings */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaCog className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Settings
@@ -97,7 +97,7 @@ const HeaderC = () => {
           </div>
 
           {/* Logout */}
-          <div className="flex items-center gap-[10px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaSignOutAlt className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Log Out

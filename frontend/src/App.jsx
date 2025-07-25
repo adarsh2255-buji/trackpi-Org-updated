@@ -7,8 +7,8 @@ import PhoneNUmber from './pages/PhoneNUmber'
 import Faq2 from './pages/Faq2'
 import Assessment from './components/Assessment'
 // import AssessmentFirstPopup from "./Pages/AssessmentFirstPopup"
-import AssessmentPassedPopup from "./Pages/AssessmentPassedPopup"
-import AssessmentFailedPopup from "./Pages/AssessmentFailedPopup"
+import AssessmentPassedPopup from "./pages/AssessmentPassedPopup"
+import AssessmentFailedPopup from "./pages/AssessmentFailedPopup"
 import AssessmentTimeUpPopup from './pages/AssessmentTimeUpPopup'
 import AssessmentTimeUpCongrats from './pages/AssessmentTimeupCongrats'
 
@@ -67,8 +67,10 @@ function App() {
 
         {/* Admin Routes */}
         <Route element={<LayoutC />}>
+
           <Route path='/admin/user-management' element={<UserManagement />} />
         
+
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin/add" element={<AddAdmin />} />
           <Route path="/admin/edit" element={<EditAdmin />} />
