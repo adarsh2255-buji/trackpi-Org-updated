@@ -9,7 +9,7 @@ export const CourseProvider = ({ children } ) => {
 
     const getAllCourse = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/course');
+            const response = await axios.get('http://localhost:5000/api/courses');
             setCourses(response.data);
             setLoading(false);
         } catch (error) {

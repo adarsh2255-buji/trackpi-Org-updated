@@ -17,6 +17,7 @@ const allAdmins = Array.from({ length: 50 }, (_, i) => ({
 const AdminManagement = () => {
     const navigate = useNavigate();
     const itemsPerPage = 8;
+    const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
 
     const indexOfLast = currentPage * itemsPerPage;
@@ -31,7 +32,7 @@ const AdminManagement = () => {
             {/* Top Controls */}
             <div className="flex justify-between items-center mb-4">
                 {/* Search Input with Icon on Right */}
-                <div className="relative" style={{ width: "330px", height: "44px" }}>
+                {/* <div className="relative" style={{ width: "330px", height: "44px" }}>
                     <input
                         type="text"
                         placeholder="Search"
@@ -42,7 +43,27 @@ const AdminManagement = () => {
                         alt="Search Icon"
                         className="w-5 h-5 absolute right-[10px] top-1/2 transform -translate-y-1/2 pointer-events-none"
                     />
-                </div>
+                </div> */}
+                <div className="relative" style={{ width: "330px", height: "44px" }}>
+  <input
+    type="text"
+    placeholder="Search"
+    value={searchTerm}
+    onChange={(e) => setSearchTerm(e.target.value)}
+    className="w-full h-full pr-10 pl-[10px] py-[13px] rounded-[10px] border border-[#FFB300] bg-white text-black placeholder-gray-500 focus:outline-none focus:ring-0 focus:border-[#FFB300]"
+  />
+  <button
+    onClick={() => handleSearch(searchTerm)} // Optional if needed for trigger
+    className="absolute right-[10px] top-1/2 transform -translate-y-1/2"
+  >
+    <img
+      src={SearchIcon}
+      alt="Search Icon"
+      className="w-5 h-5"
+    />
+  </button>
+</div>
+
 
                 {/* Filter & Export Buttons */}
                 <div className="flex gap-2">

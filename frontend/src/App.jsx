@@ -5,7 +5,7 @@ import Home from './pages/Home'
 import StartCourse from './pages/StartCourse'
 import PhoneNUmber from './pages/PhoneNUmber'
 import Faq2 from './pages/Faq2'
-import Assessment from './components/Assessment'
+import AssessmentPage from './pages/AssessmentPage'
 // import AssessmentFirstPopup from "./Pages/AssessmentFirstPopup"
 import AssessmentPassedPopup from "./pages/AssessmentPassedPopup"
 import AssessmentFailedPopup from "./pages/AssessmentFailedPopup"
@@ -56,7 +56,8 @@ function App() {
           <Route path='/assessment/failed' element={<AssessmentFailedPopup />} />
           <Route path='/assessment/time-up' element={<AssessmentTimeUpPopup />} />
           <Route path='/assessment/congrats' element={<AssessmentTimeUpCongrats />} />
-          <Route path='/assessment/:courseId/:sectionId' element={<Assessment />} />
+          <Route path='/assessment/:courseId/:sectionId' element={<AssessmentPage />} />
+
 
           {/* Course Routes */}
           <Route path='/course-section' element={<CourseSection />} />
@@ -69,7 +70,7 @@ function App() {
         <Route element={<LayoutC />}>
 
           <Route path='/admin/user-management' element={<UserManagement />} />
-        
+
 
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
           <Route path="/admin/add" element={<AddAdmin />} />

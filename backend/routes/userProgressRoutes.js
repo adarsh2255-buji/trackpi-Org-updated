@@ -8,6 +8,8 @@ const router = express.Router();
 router.post('/watch-video', authenticateToken, markVideoWatched);
 // Start an assessment for a section
 router.post('/start-assessment', authenticateToken, startAssessment);
+// router.post('/start-assessment', startAssessment); // 🧪 testing only
+
 // Submit assessment answers
 router.post('/submit-assessment', authenticateToken, submitAssessment);
 // Get the current section for the user in a course
