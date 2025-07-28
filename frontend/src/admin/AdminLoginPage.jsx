@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AdminAuthContext } from '../context/AdminAuthContext';
 import DashboardIcon from '../assets/dashboard.png';
 import LockIcon from '../assets/lock.png';
 import UserIcon from '../assets/user.png';
@@ -13,6 +14,7 @@ const AdminLoginPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const { login } = useContext(AdminAuthContext);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -33,8 +35,8 @@ const AdminLoginPage = () => {
       });
 
       if (response.data.message === 'Login successful') {
-        // Store admin info in localStorage or context if needed
-        localStorage.setItem('adminInfo', JSON.stringify(response.data.admin));
+        // Use the context to store admin info
+        login(response.data.admin);
         navigate('/admin-dashboard');
       }
     } catch (err) {
