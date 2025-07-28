@@ -9,7 +9,7 @@ import { AuthContext } from '../context/AuthContext';
 const StartCourse = () => {
     const { user } = useContext(AuthContext)
     const navigate = useNavigate()
-    console.log(user)
+
 
 
 

@@ -36,6 +36,18 @@ const AssessmentPage = () => {
     const fetchQuestions = async () => {
       setLoading(true);
       setError('');
+      
+      // Debug: Check user progress first
+      try {
+        const progressRes = await axios.get(
+          `http://localhost:5000/api/progress/section-progress?courseId=${courseId}&sectionId=${sectionId}`,
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        console.log('User progress:', progressRes.data);
+      } catch (progressError) {
+        console.error('Progress check error:', progressError.response?.data || progressError.message);
+      }
+      
       try {
         const res = await axios.post(
           'http://localhost:5000/api/progress/start-assessment',
@@ -50,7 +62,8 @@ const AssessmentPage = () => {
           setError("Invalid response format.");
         }
       } catch (error) {
-        setError("Failed to load assessment questions.");
+        console.error('Assessment start error:', error.response?.data || error.message);
+        setError(error.response?.data?.error || "Failed to load assessment questions.");
       } finally {
         setLoading(false);
       }
@@ -108,7 +121,8 @@ const AssessmentPage = () => {
         timeUp: timeUp || res.data.timeUp
       });
     } catch (err) {
-      setError('Failed to submit assessment.');
+      console.error('Assessment submit error:', err.response?.data || err.message);
+      setError(err.response?.data?.error || 'Failed to submit assessment.');
     } finally {
       setSubmitting(false);
     }

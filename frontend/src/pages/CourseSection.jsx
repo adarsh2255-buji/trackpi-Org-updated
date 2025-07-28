@@ -116,7 +116,6 @@ useEffect(() => {
       try {
         const res = await axios.get('http://localhost:5000/api/courses');
         setCourses(res.data);
-        console.log(res.data)
         if (res.data.length > 0) {
           setSelectedCourse(res.data[0]._id);
         }
