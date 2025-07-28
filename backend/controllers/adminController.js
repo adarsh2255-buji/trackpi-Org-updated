@@ -32,9 +32,28 @@ export const editAdmin = async (req, res) => {
 export const deleteAdmin = async (req, res) => {
   try {
     const { id } = req.params;
+    const { password } = req.body;
+    
+    // Get the current admin's session
+    const currentAdmin = await Admin.findById(req.session.adminId);
+    if (!currentAdmin) {
+      return res.status(401).json({ error: 'Unauthorized: Admin login required' });
+    }
+    
+    // Verify password
+    const isMatch = await bcrypt.compare(password, currentAdmin.password);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid password' });
+    }
+    
+    // Prevent self-deletion
+    if (id === req.session.adminId) {
+      return res.status(400).json({ error: 'Cannot delete your own account' });
+    }
+    
     const admin = await Admin.findByIdAndDelete(id);
     if (!admin) return res.status(404).json({ error: 'Admin not found' });
-    res.json({ message: 'Admin deleted' });
+    res.json({ message: 'Admin deleted successfully' });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

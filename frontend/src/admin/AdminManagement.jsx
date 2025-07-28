@@ -6,7 +6,7 @@ import EditIcon from '../assets/edit.png';
 import LockIcon from '../assets/lock.png';
 import SearchIcon from "../assets/search2.png";
 
-const AdminManagement = () => {
+const AdminManagement = ({ onEditAdmin }) => {
     const navigate = useNavigate();
     const itemsPerPage = 8;
     const [searchTerm, setSearchTerm] = useState('');
@@ -181,7 +181,10 @@ const AdminManagement = () => {
                                             className="w-full h-full object-contain"
                                         />
                                     </button>
-                                    <button className="w-5 h-5" onClick={() => navigate("/admin/edit")}>
+                                    <button 
+                                        className="w-5 h-5" 
+                                        onClick={() => onEditAdmin && onEditAdmin(admin)}
+                                    >
                                         <img
                                             src={EditIcon}
                                             alt="Edit"
