@@ -1,34 +1,79 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import TrashIcon from '../assets/trash.png';
 import EditIcon from '../assets/edit.png';
 import LockIcon from '../assets/lock.png';
 import SearchIcon from "../assets/search2.png";
-
-// Create a full list of dummy admins
-const allAdmins = Array.from({ length: 50 }, (_, i) => ({
-    username: `@Amy_${i + 1}`,
-    name: `Amy ${i + 1}`,
-    email: `amy${i + 1}@email.com`,
-    role: 'Super admin',
-    lastLogin: `${i + 1} hour(s) ago`,
-}));
 
 const AdminManagement = () => {
     const navigate = useNavigate();
     const itemsPerPage = 8;
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
+    const [admins, setAdmins] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
+
+    // Fetch admins from API
+    useEffect(() => {
+        const fetchAdmins = async () => {
+            try {
+                setLoading(true);
+                const response = await axios.get('http://localhost:5000/api/admin', {
+                    withCredentials: true
+                });
+                setAdmins(response.data || []);
+                setError('');
+            } catch (err) {
+                console.error('Error fetching admins:', err);
+                setError('Failed to load admin data');
+                setAdmins([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchAdmins();
+    }, []);
+
+    // Filter admins based on search term
+    const filteredAdmins = admins.filter(admin => 
+        admin.username?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        admin.fullname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        admin.email?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+
 
     const indexOfLast = currentPage * itemsPerPage;
     const indexOfFirst = indexOfLast - itemsPerPage;
-    const currentAdmins = allAdmins.slice(indexOfFirst, indexOfLast);
+    const currentAdmins = filteredAdmins.slice(indexOfFirst, indexOfLast);
 
-    const totalPages = Math.ceil(allAdmins.length / itemsPerPage);
+    const totalPages = Math.ceil(filteredAdmins.length / itemsPerPage);
+
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+        setCurrentPage(1); // Reset to first page when searching
+    };
 
     return (
     
         <div className="admin-management p-6 text-black">
+            {/* Error Message */}
+            {error && (
+                <div className="mb-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded">
+                    {error}
+                </div>
+            )}
+
+            {/* Loading State */}
+            {loading && (
+                <div className="mb-4 p-4 bg-blue-100 border border-blue-400 text-blue-700 rounded">
+                    Loading admin data...
+                </div>
+            )}
+
             {/* Top Controls */}
             <div className="flex justify-between items-center mb-4">
                 {/* Search Input with Icon on Right */}
@@ -67,6 +112,13 @@ const AdminManagement = () => {
 
                 {/* Filter & Export Buttons */}
                 <div className="flex gap-2">
+                    <button 
+                        onClick={() => window.location.reload()} 
+                        className="bg-white border px-4 py-2 rounded hover:bg-gray-50"
+                    >
+                        Refresh
+                    </button>
+
                     <button className="bg-white border px-4 py-2 rounded">Filter</button>
                     <button className="bg-red-600 text-white px-4 py-2 rounded shadow-md">Export</button>
                 </div>
@@ -88,7 +140,14 @@ const AdminManagement = () => {
 
 
                     <tbody>
-                        {currentAdmins.map((admin, idx) => (
+                        {currentAdmins.length === 0 ? (
+                            <tr>
+                                <td colSpan="6" className="px-4 py-8 text-center text-gray-500">
+                                    {loading ? 'Loading...' : 'No admins found'}
+                                </td>
+                            </tr>
+                        ) : (
+                            currentAdmins.map((admin, idx) => (
                             <tr
                                 key={idx}
                                 className={`h-[64px] border border-[#FFB300] ${idx % 2 === 0 ? 'bg-[#FFF1CF]' : 'bg-white'
@@ -102,16 +161,16 @@ const AdminManagement = () => {
                                     />
                                     {admin.username}
                                 </td>
-                                <td className="px-4 py-2">{admin.name}</td>
+                                <td className="px-4 py-2">{admin.fullname}</td>
                                 <td className="px-4 py-2">{admin.email}</td>
                                 <td className="px-4 py-2 ">
                                     <span className="bg-[#FFB30080] px-2 py-1 rounded-3xl text-sm">
-                                        {admin.role}
+                                        {admin.adminType}
                                     </span>
                                 </td>
                                 <td className="px-4 py-2">
                                     <span className="bg-[#FFC33480] px-2 py-1 rounded-3xl text-sm">
-                                        {admin.lastLogin}
+                                        {admin.lastLogin || 'Never'}
                                     </span>
                                 </td>
                                 <td className="px-4 py-2 flex gap-3 items-center rounded-r-[5px]">
@@ -138,7 +197,8 @@ const AdminManagement = () => {
                                     </button>
                                 </td>
                             </tr>
-                        ))}
+                        ))
+                        )}
                     </tbody>
 
                 </table>

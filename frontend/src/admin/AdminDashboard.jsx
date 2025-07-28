@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+import { AdminAuthContext } from '../context/AdminAuthContext';
 
 import AdminManagement from './AdminManagement';
 import PlusIcon from '../assets/plus.png';
@@ -13,6 +14,13 @@ import SearchIcon from '../assets/search2.png';
 
 const AdminDashboard = () => {
     const navigate = useNavigate();
+    const { logout, adminInfo } = useContext(AdminAuthContext);
+    
+    const handleLogout = async () => {
+        await logout();
+        navigate('/admin/login');
+    };
+    
     return (
         <div className="min-h-screen bg-white">
             {/* Top Navigation Bar */}
@@ -61,7 +69,11 @@ const AdminDashboard = () => {
                     <button className="bg-[#FFF0CE] rounded-[1rem] border-2 border-[#FFB300] p-2">
                         <img src={BellIcon} alt="Notification" className="w-5 h-5" />
                     </button>
-                    <button className="bg-[#FFF0CE] rounded-full border-2 border-[#FFB300] p-2">
+                    <button 
+                        onClick={handleLogout}
+                        className="bg-[#FFF0CE] rounded-full border-2 border-[#FFB300] p-2 hover:bg-yellow-100 transition-colors"
+                        title="Logout"
+                    >
                         <img src={UserIcon} alt="Profile" className="w-5 h-5" />
                     </button>
                 </div>

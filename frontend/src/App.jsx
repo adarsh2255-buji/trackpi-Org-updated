@@ -21,6 +21,7 @@ import EditAdmin from "./admin/EditAdmin";
 import DeleteAdminPopup from "./admin/DeleteAdminPopup";
 import SuspendAdminPopup from "./admin/SuspendAdminPopup";
 import AdminLoginPage from './admin/AdminLoginPage';
+import AdminProtectedRoute from './components/AdminProtectedRoute';
 // background layout
 import LayoutA from './components/LayoutA'
 import LayoutB from './components/LayoutB'
@@ -71,7 +72,7 @@ function App() {
         <Route path="/admin/login" element={<AdminLoginPage />} />
 
         {/* Admin Routes */}
-        <Route element={<LayoutC />}>
+        <Route element={<AdminProtectedRoute><LayoutC /></AdminProtectedRoute>}>
 
           <Route path='/admin/user-management' element={<UserManagement />} />
 
