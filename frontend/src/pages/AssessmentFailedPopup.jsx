@@ -28,12 +28,13 @@ function AssessmentFailedPopup({ wrongAnswers = [], onGoBack, onRetake }) {
           </p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             {wrongAnswers.length > 0 ? (
-              wrongAnswers.map((q) => (
+              wrongAnswers.map((wrongAnswer) => (
                 <div
-                  key={q}
+                  key={wrongAnswer.questionNumber}
                   className="w-10 h-10 md:w-12 md:h-12 rounded-full border border-white flex items-center justify-center text-base md:text-lg font-semibold"
+                  title={`Q${wrongAnswer.questionNumber}: Your answer: ${wrongAnswer.userAnswer}, Correct: ${wrongAnswer.correctAnswer}`}
                 >
-                  {q}
+                  {wrongAnswer.questionNumber}
                 </div>
               ))
             ) : (

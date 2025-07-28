@@ -91,12 +91,32 @@ export const submitAssessment = async (req, res) => {
     if (start && (now - start) > 60 * 60 * 1000) { // 60 minutes
       return res.status(400).json({ error: 'Assessment time limit exceeded.' });
     }
-    // Get correct answers
+    // Get correct answers and calculate score
     const questions = await Question.find({ section: sectionId }).limit(30);
     let score = 0;
-    questions.forEach((q, i) => {
-      if (answers[i] && answers[i] === q.correctAnswer) score++;
+    const wrongAnswers = [];
+    
+    // Create a map of questionId to answer for easier lookup
+    const answerMap = {};
+    answers.forEach(answer => {
+      answerMap[answer.questionId] = answer.answer;
     });
+    
+    questions.forEach((question, index) => {
+      const userAnswer = answerMap[question._id];
+      if (userAnswer && userAnswer === question.correctAnswer) {
+        score++;
+      } else if (userAnswer) {
+        // Track wrong answers with question number (1-based index)
+        wrongAnswers.push({
+          questionNumber: index + 1,
+          userAnswer: userAnswer,
+          correctAnswer: question.correctAnswer,
+          question: question.question
+        });
+      }
+    });
+    
     // Update assessment results
     progress.sectionAssessment = progress.sectionAssessment || {};
     progress.sectionAssessment.attempts = (progress.sectionAssessment.attempts || 0) + 1;
@@ -105,7 +125,14 @@ export const submitAssessment = async (req, res) => {
     progress.sectionAssessment.timeSpent = Math.round((now - (start || now)) / 60000);
     progress.sectionAssessment.lastAttempt = now;
     await progress.save();
-    res.json({ score, passed: score >= 25, attempts: progress.sectionAssessment.attempts });
+    
+    res.json({ 
+      score, 
+      passed: score >= 25, 
+      attempts: progress.sectionAssessment.attempts,
+      wrongAnswers,
+      totalQuestions: questions.length
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

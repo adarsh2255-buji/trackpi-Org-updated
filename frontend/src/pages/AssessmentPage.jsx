@@ -23,7 +23,7 @@ const AssessmentPage = () => {
   const [submitting, setSubmitting] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const [showIntroPopup, setShowIntroPopup] = useState(true);
+
 
   const timerRef = useRef();
   const navigate = useNavigate();
@@ -36,17 +36,6 @@ const AssessmentPage = () => {
     const fetchQuestions = async () => {
       setLoading(true);
       setError('');
-      
-      // Debug: Check user progress first
-      try {
-        const progressRes = await axios.get(
-          `http://localhost:5000/api/progress/section-progress?courseId=${courseId}&sectionId=${sectionId}`,
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        console.log('User progress:', progressRes.data);
-      } catch (progressError) {
-        console.error('Progress check error:', progressError.response?.data || progressError.message);
-      }
       
       try {
         const res = await axios.post(
@@ -69,11 +58,11 @@ const AssessmentPage = () => {
       }
     };
 
-    if (token && !showIntroPopup) {
+    if (token) {
       fetchQuestions();
       setTimer(ASSESSMENT_TIME);
     }
-  }, [token, courseId, sectionId, showIntroPopup]);
+  }, [token, courseId, sectionId]);
 
   // Timer countdown logic
   useEffect(() => {
@@ -103,7 +92,7 @@ const AssessmentPage = () => {
         courseId,
         sectionId,
         answers: questions.map((q, idx) => ({
-          questionId: q.id,
+          questionId: q._id,
           answer: answers[idx] || ""
         }))
       };
@@ -128,14 +117,7 @@ const AssessmentPage = () => {
     }
   };
 
-  if (showIntroPopup) {
-    return (
-      <AssessmentFirstPopup
-        maxAttempts={5}
-        onButtonClick={() => setShowIntroPopup(false)}
-      />
-    );
-  }
+
 
   if (loading) return <div className="text-white text-center mt-20 text-xl">Loading questions...</div>;
   if (error) return <div className="text-red-500 text-center mt-20 text-xl">{error}</div>;
@@ -146,15 +128,15 @@ const AssessmentPage = () => {
       <AssessmentPassedPopup
         timeUp={result.timeUp}
         score={result.score}
-        total={questions.length}
-        onUnlock={() => navigate('/courses')}
+        total={result.totalQuestions || questions.length}
+        onUnlock={() => navigate(`/course-section/${courseId}`)}
       />
     ) : (
       <AssessmentFailedPopup
         score={result.score}
-        total={questions.length}
+        total={result.totalQuestions || questions.length}
         wrongAnswers={result.wrongAnswers}
-        onGoBack={() => navigate('/courses')}
+        onGoBack={() => navigate(`/courses/${courseId}/sections/${sectionId}`)}
         onRetake={() => window.location.reload()}
       />
     );

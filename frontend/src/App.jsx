@@ -20,6 +20,7 @@ import AddAdmin from './admin/AddAdmin'
 import EditAdmin from "./admin/EditAdmin";
 import DeleteAdminPopup from "./admin/DeleteAdminPopup";
 import SuspendAdminPopup from "./admin/SuspendAdminPopup";
+import AdminLoginPage from './admin/AdminLoginPage';
 // background layout
 import LayoutA from './components/LayoutA'
 import LayoutB from './components/LayoutB'
@@ -65,6 +66,9 @@ function App() {
           <Route path="/courses/:courseId/sections/:sectionId" element={<SectionVideos />} />
 
         </Route>
+
+        {/* Admin Login Route */}
+        <Route path="/admin/login" element={<AdminLoginPage />} />
 
         {/* Admin Routes */}
         <Route element={<LayoutC />}>
