@@ -146,23 +146,22 @@ return (
   <div className="text-white font-inter w-full">
     
     {/* Title Section - add here */}
-<div
-  className="flex items-center justify-start border-t border-white/50"
-  style={{
-    width: "1512px",
-    height: "33px",
-    paddingTop: "40px",
-    paddingLeft: "50px",
-    paddingRight: "50px",
-    gap: "25px",
-    opacity: 1,
-  }}
->
-  <div className="font-roboto font-medium text-[1.95vw] leading-[1] tracking-normal text-white text-center max-[768px]:text-[4vw]">
-    Assessment
-  </div>
-</div>
-
+    <div
+      className="flex items-center justify-start border-t border-white/50"
+      style={{
+        width: "1512px",
+        height: "33px",
+        paddingTop: "40px",
+        paddingLeft: "50px",
+        paddingRight: "50px",
+        gap: "25px",
+        opacity: 1,
+      }}
+    >
+      <div className="font-roboto font-medium text-[1.95vw] leading-[1] tracking-normal text-white text-center max-[768px]:text-[4vw]">
+        Assessment
+      </div>
+    </div>
 
     <AssessmentBubble
       currentPage={currentPage}
@@ -170,72 +169,71 @@ return (
       totalPages={questions.length}
     />
 
-     <div className="absolute top-[249px] left-[75px] w-[1372px] h-[28px] flex justify-between items-center text-xl font-semibold opacity-100">
-  <p>Question {currentPage} / {questions.length}</p>
-  <p>Time Remaining: {formatTime(timer)}</p>
-</div>
+    <div className="absolute top-[249px] left-[75px] w-[1372px] h-[28px] flex justify-between items-center text-xl font-semibold opacity-100">
+      <p>Out of {currentPage} / {questions.length} Questions</p>
+      <p>Time Remaining: {formatTime(timer)}</p>
+    </div>
 
-<div className="px-[70px] mt-[220px] w-[1362px] h-[238px]">
-  <h2 className="text-[20px] font-semibold mb-6 text-white">{currentQuestion.question}</h2>
+    <div className="px-[70px] mt-[220px] w-[1362px] h-[238px]">
+      <h2 className="text-[20px] font-semibold mb-6 text-white">
+        {currentPage}) {currentQuestion.question}
+      </h2>
 
-  <div className="grid grid-cols-2 gap-x-[100px] gap-y-[30px]">
-    {currentQuestion.options.map((opt, idx) => {
-      const isSelected = answers[currentPage - 1] === opt;
-      const label = String.fromCharCode(65 + idx);
-      return (
-        <div
-          key={opt}
-          onClick={() => handleOptionSelect(opt)}
-          className={`flex items-center cursor-pointer rounded-full px-[18px] py-[12px] text-[16px] font-medium
-            ${isSelected ? 'bg-yellow-500 text-black' : 'bg-transparent text-white'}`}
-          style={{ height: '45px' }}
-        >
-          {/* Custom Radio Circle */}
-          <div
-            className={`w-[16px] h-[16px] rounded-full mr-4 border-2 flex items-center justify-center
-              ${isSelected ? 'border-black bg-transparent' : 'border-gray-400 bg-transparent'}`}
-          >
-            {isSelected && (
-              <div className="w-[8px] h-[8px] bg-white rounded-full"></div>
-            )}
-          </div>
+      <div className="grid grid-cols-2 gap-4">
+        {currentQuestion.options.map((opt, idx) => {
+          const isSelected = answers[currentPage - 1] === opt;
+          const label = String.fromCharCode(65 + idx);
+          return (
+            <div
+              key={opt}
+              onClick={() => handleOptionSelect(opt)}
+              className={`flex items-center cursor-pointer rounded-lg px-4 py-3 text-base font-medium transition-colors w-full
+                ${isSelected ? 'bg-yellow-500 text-black' : 'bg-transparent text-white hover:bg-white/10'}`}
+            >
+              {/* Custom Radio Circle */}
+              <div
+                className={`w-4 h-4 rounded-full mr-3 border-2 flex items-center justify-center
+                  ${isSelected ? 'border-black bg-black' : 'border-gray-400 bg-transparent'}`}
+              >
+                {isSelected && (
+                  <div className="w-2 h-2 bg-white rounded-full"></div>
+                )}
+              </div>
 
-          {/* Option Label & Text */}
-          <span className="mr-2">{label})</span>
-          {opt}
-        </div>
-      );
-    })}
-  </div>
-</div>
-
-
-
-<div className="flex justify-center gap-[30px] w-[536px] mx-auto mt-[60px]">
-  <button
-    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-    className="border border-white w-[253px] h-[45px] rounded-full text-white py-[2px] px-[30px]"
-  >
-    Previous
-  </button>
-  <button
-    onClick={() => setCurrentPage(prev => Math.min(questions.length, prev + 1))}
-    className="bg-yellow-500 text-black w-[253px] h-[45px] rounded-full py-[2px] px-[30px]"
-  >
-    Next
-  </button>
-        <button
-          onClick={() => handleSubmit(false)}
-          disabled={submitting || currentPage !== questions.length}
-          className={`px-6 py-2 rounded-full ${currentPage === questions.length
-            ? 'bg-yellow-500 text-white'
-            : 'bg-gray-500 text-white cursor-not-allowed'}`}
-        >
-          {submitting ? "Submitting..." : "Submit"}
-        </button>
+              {/* Option Label & Text */}
+              <span className="mr-2 font-medium">{label})</span>
+              <span>{opt}</span>
+            </div>
+          );
+        })}
       </div>
     </div>
-  );
+
+    <div className="flex justify-center gap-[30px] w-[536px] mx-auto mt-[60px]">
+      <button
+        onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+        className="border border-white w-[253px] h-[45px] rounded-full text-white py-[2px] px-[30px]"
+      >
+        Previous
+      </button>
+      <button
+        onClick={() => {
+          if (currentPage === questions.length) {
+            // If on last question, submit the assessment
+            handleSubmit(false);
+          } else {
+            // Otherwise, go to next question
+            setCurrentPage(prev => Math.min(questions.length, prev + 1));
+          }
+        }}
+        disabled={submitting}
+        className="bg-yellow-500 text-black w-[253px] h-[45px] rounded-full py-[2px] px-[30px] disabled:opacity-50"
+      >
+        {submitting ? "Submitting..." : currentPage === questions.length ? "Submit" : "Next"}
+      </button>
+    </div>
+  </div>
+);
 };
 
 // Inline bubble component
