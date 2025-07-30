@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MdDashboard } from 'react-icons/md';
 import {
   FaUserCog,
@@ -15,6 +15,8 @@ import {
 import Logo from '../assets/targetpi logo.png'; // adjust if file is in different folder
 
 const HeaderC = () => {
+  const location = useLocation();
+  
   return (
     <div className="flex font-[Poppins] h-[960px]">
 
@@ -30,7 +32,12 @@ const HeaderC = () => {
         <div className="flex flex-col gap-[20px] px-4">
 
           {/* Dashboard */}
-          <Link to="/admin-dashboard" className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] bg-[#FFB300] cursor-pointer">
+          <Link 
+            to="/admin-dashboard" 
+            className={`flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] cursor-pointer ${
+              location.pathname === '/admin-dashboard' ? 'bg-[#FFB300]' : 'hover:bg-[#FFE29D]'
+            }`}
+          >
             <MdDashboard className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Dashboard
@@ -38,7 +45,12 @@ const HeaderC = () => {
           </Link>
 
           {/* Admin Management */}
-          <Link to="/admin/admin-management" className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <Link 
+            to="/admin/admin-management" 
+            className={`flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] cursor-pointer ${
+              location.pathname === '/admin/admin-management' ? 'bg-[#FFB300]' : 'hover:bg-[#FFE29D]'
+            }`}
+          >
             <FaUserCog className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Admin Management
@@ -46,7 +58,12 @@ const HeaderC = () => {
           </Link>
 
           {/* User Management */}
-          <Link to="/admin/user-management" className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <Link 
+            to="/admin/user-management" 
+            className={`flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] cursor-pointer ${
+              location.pathname === '/admin/user-management' ? 'bg-[#FFB300]' : 'hover:bg-[#FFE29D]'
+            }`}
+          >
             <FaUsers className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               User Management
