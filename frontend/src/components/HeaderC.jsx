@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MdDashboard } from 'react-icons/md';
 import {
   FaUserCog,
@@ -29,28 +30,28 @@ const HeaderC = () => {
         <div className="flex flex-col gap-[20px] px-4">
 
           {/* Dashboard */}
-          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] bg-[#FFB300] cursor-pointer">
+          <Link to="/admin-dashboard" className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] bg-[#FFB300] cursor-pointer">
             <MdDashboard className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Dashboard
             </span>
-          </div>
+          </Link>
 
           {/* Admin Management */}
-          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <Link to="/admin/admin-management" className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaUserCog className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               Admin Management
             </span>
-          </div>
+          </Link>
 
           {/* User Management */}
-          <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
+          <Link to="/admin/user-management" className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
             <FaUsers className="w-[24px] h-[24px] text-[#0A0A0A]" />
             <span className="text-[#0A0A0A] text-[16px] font-[400] tracking-[0.02em] leading-[100%]">
               User Management
             </span>
-          </div>
+          </Link>
 
           {/* Course Management */}
           <div className="flex items-center gap-[15px] px-[43px] py-[10px] h-[44px] rounded-[18px] hover:bg-[#FFE29D] cursor-pointer">
