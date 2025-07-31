@@ -32,6 +32,7 @@ import SectionVideos from './pages/SectionVideos'
 import AboutPage from './pages/Aboutpage'
 import UserManagement from './admin/UserManagement'
 import OAuthRedirectHandler from './pages/OAuthRedirectHandler'
+import AdminManagement from './admin/AdminManagement'
 
 
 function App() {
@@ -75,6 +76,7 @@ function App() {
         <Route element={<AdminProtectedRoute><LayoutC /></AdminProtectedRoute>}>
 
           <Route path='/admin/user-management' element={<UserManagement />} />
+          <Route path='/admin/admin-management' element={<AdminManagement />} />
 
 
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
