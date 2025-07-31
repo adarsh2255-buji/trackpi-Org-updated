@@ -23,18 +23,18 @@ function Home() {
           alt="Hero background"
           className="absolute top-0 left-0 w-full h-full object-cover -scale-x-100"
         />
-        <div className="relative z-10 text-center px-4 md:px-[48px] max-w-3xl mx-auto">
-          <h1 className="text-3xl md:text-5xl font-extrabold leading-tight">
-            Kerala&apos;s Biggest Freelancer <br /> Community
+        <div className="relative z-10 text-center px-4 md:px-[48px] max-w-[993px] mx-auto">
+          <h1 className="text-white font-bold leading-[1.1] text-[8vw] sm:text-[4vw] drop-shadow-md">
+            Kerala's Biggest Freelancer<br className="block sm:hidden" /> Community
           </h1>
-          <p className="mt-4 text-lg font-medium">
+          <p className="text-white mt-4 text-base sm:text-lg">
             Welcome to TrackPi Private Limited – Your Strategic Growth Partner.
           </p>
-          <button className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white/30 text-white rounded-[8px] font-semibold cursor-pointer roboto">
-            <Play className="w-5 h-5 text-white" />
-            Watch Now
+          <button className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white rounded-[8px] font-semibold cursor-pointer roboto transition-all duration-300">
+            ▶ Watch Now
           </button>
         </div>
+
         <div className='absolute bottom-10 right-6 z-10 w-12 h-12 bg-[#492F30] rounded-full flex items-center justify-center cursor-pointer'>
           <Volume2 className='' />
         </div>
@@ -61,18 +61,20 @@ function Home() {
               Become a Freelancer in 24 Hours
             </h2>
 
-            <p className="libre-franklin text-white font-medium text-base md:text-xl text-justify md:text-center">
-              Are you ready to start your freelancing journey today?
-              Gain control over your career? We make it easy for you to start.
+            <p className="libre-franklin text-white font-semibold text-lg md:text-xl text-justify md:text-justify leading-snug max-w-[783px] mx-auto">
+              Are you ready to start your freelancing journey today? Gain control over <br/>your career? We make it easy for you to start.
             </p>
 
-            <p className="libre-franklin text-white font-semibold text-base md:text-lg text-center md:text-center">
+            <p className="libre-franklin text-white font-semibold text-[20px] leading-[100%] text-justify max-w-[595px] mx-auto">
               You can become a freelancer in just 24 hours.
             </p>
-            <br />
-            <p className="libre-franklin text-[#ffffff] font-semibold text-base md:text-lg text-center md:text-center">
+
+            <p
+              className="libre-franklin text-white font-semibold text-[25px] leading-[1] text-center px-[18.75px] py-[9.37px] rounded-[3.75px] max-w-[334.5px] mx-auto"
+            >
               Join us to know more
             </p>
+
           </div>
 
           {/* Image */}
@@ -103,7 +105,7 @@ function Home() {
           <p className="text-base md:text-xl leading-relaxed">
             "TrackPi is a platform that helps freelancers manage their projects. Our goal is to make freelancing seamless and profitable for everyone."
           </p>
-          <p className="text-[#FFC727] font-extrabold text-xl mt-4">What is TrackPi?</p>
+          <p className="text-[#FFC727] font-extrabold text-3xl mt-4">What is TrackPi?</p>
         </div>
 
         {/* Card 2 - Wide (60%) */}
@@ -111,7 +113,7 @@ function Home() {
           <p className="text-base md:text-xl leading-relaxed">
             "Freelancing is a way of working where individuals offer their skills and services on a project basis rather than being employed full-time by a single company. It allows for flexibility, independence, and diverse work opportunities."
           </p>
-          <p className="text-[#FFC727] font-extrabold text-xl mt-4">What is Freelancing?</p>
+          <p className="text-[#FFC727] font-extrabold text-3xl mt-4">What is Freelancing?</p>
         </div>
 
         {/* Card 3 - Wide (60%) */}
@@ -119,7 +121,7 @@ function Home() {
           <p className="text-base md:text-xl leading-relaxed">
             Access to high-quality projects from verified clients. A supportive network of like-minded freelancers. Free training courses to upskill and grow. Secure and timely payments for your work.
           </p>
-          <p className="text-[#FFC727] font-extrabold text-xl mt-4">Why Join TrackPi's Freelancer Community?</p>
+          <p className="text-[#FFC727] font-extrabold text-3xl mt-4">Why Join TrackPi's Freelancer Community?</p>
         </div>
 
         {/* Card 4 - Compact (40%) */}
@@ -127,12 +129,12 @@ function Home() {
           <p className="text-base md:text-xl leading-relaxed">
             Gain essential freelancing knowledge by Complete Training. Unlock the Freelancer Marketplace – Start receiving project offers. Work & Get Paid – Deliver quality work and earn.
           </p>
-          <p className="text-[#FFC727] font-extrabold text-xl mt-4">How It Works?</p>
+          <p className="text-[#FFC727] font-extrabold text-3xl mt-4">How It Works?</p>
         </div>
       </section>
 
 
-      <section className='px-4 md:px-10 mt-30'>
+      <section className='px-4 md:px-10 mt-20'>
         <h2 className='libre-franklin font-bold text-4xl md:text-6xl text-center text-white mb-10 tracking-wide'>High-Resolution Benefits</h2>
 
         <div className='flex flex-col md:flex-row gap-30 mb-30'>
@@ -144,6 +146,7 @@ function Home() {
           </div>
           <img src={group3} alt="group image" className='w-[300px] h-[200px] md:w-[500px] md:h-[400px] rounded-[10px] object-cover' />
         </div>
+        
 
         <div className='flex flex-col md:flex-row-reverse gap-30 mb-20'>
           <div className='flex flex-col justify-center gap-5 md:w-1/2'>
@@ -153,8 +156,8 @@ function Home() {
             </p>
           </div>
           <img src={group4} alt="group image" className="w-[300px] h-[200px] md:w-[500px] md:h-[400px] rounded-[10px] object-cover" />
-
         </div>
+        
       </section>
 
       <Signup />

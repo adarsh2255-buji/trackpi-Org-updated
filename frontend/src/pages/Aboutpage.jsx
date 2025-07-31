@@ -6,30 +6,32 @@ import React from 'react'
 const Aboutpage = () => {
   return (
 
-
-    <div className="relative w-full min-h-screen">
-      {/* TOP HERO SECTION */}
-      <div className="relative w-full">
-        {/* Hero Section */}
-        <div className="relative w-full h-[223px] sm:h-[320px] md:h-[500px] lg:h-screen overflow-hidden">
-          {/* Background Image */}
-          <img
-            src="/about main.png"
-            alt="Background"
-            className="w-full h-full object-cover bg-transparent"
-            style={{ backgroundColor: 'transparent' }}
-          />
-          {/* Overlay */}
-          <div className="absolute inset-0 bg-/50 z-10" />
-          {/* Who We Are */}
-          <div className="absolute z-20 w-full flex justify-center bottom-[10px] sm:inset-0 sm:items-center sm:justify-center">
-            <h1 className="text-white text-center font-[800] leading-[100%] tracking-[0.05em] font-libre text-[24px] sm:text-[68px] w-[90%] sm:w-[472px] sm:h-[82px] whitespace-nowrap">
-              Who We Are?
-            </h1>
+<div className="bg-gradient-to-br from-[#09060E] via-[#2D1D29] to-[#694230] min-h-screen">
+      <div className="relative w-full min-h-screen">
+        {/* TOP HERO SECTION */}
+        <div className="relative w-full">
+          {/* Hero Section */}
+          <div className="relative w-full h-[223px] sm:h-[320px] md:h-[500px] lg:h-screen overflow-hidden">
+            <img
+              src="/about main.png"
+              alt="Background"
+              className="w-full h-full object-cover bg-transparent"
+              style={{ backgroundColor: 'transparent' }}
+            />
+            <div className="absolute inset-0 bg-/50 z-10" />
+            <div className="absolute z-20 w-full flex justify-center bottom-[10px] sm:inset-0 sm:items-center sm:justify-center">
+              <h1 className="text-white text-center font-[800] leading-[100%] tracking-[0.05em] font-libre text-[24px] sm:text-[68px] w-[90%] sm:w-[472px] sm:h-[82px] whitespace-nowrap">
+                Who We Are?
+              </h1>   
+            </div>
+            <div className="hidden sm:flex absolute bottom-[10px] left-0 right-0 justify-center z-20">
+              <h2 className="text-white text-center font-[800] text-[60px] leading-[100%] tracking-normal font-libre w-[1728px] h-[73px]">
+                About Our Company
+              </h2>
+            </div>
           </div>
-          {/* About Our Company – only inside image for sm+ */}
-          <div className="hidden sm:flex absolute bottom-[40px] left-0 right-0 justify-center z-20">
-            <h2 className="text-white text-center font-[800] text-[60px] leading-[100%] tracking-normal font-libre w-[1728px] h-[73px]">
+          <div className="sm:hidden flex justify-center mt-2">
+            <h2 className="text-white text-center font-[800] text-[20px] leading-[100%] tracking-normal font-libre">
               About Our Company
             </h2>
           </div>
